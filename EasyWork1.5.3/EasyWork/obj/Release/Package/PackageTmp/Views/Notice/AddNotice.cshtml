@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "发布公告";
+}
+
+<style type="text/css">
+    #btn-sumbit {
+        position: fixed;
+        right: 5px;
+        bottom: 5px;
+    }
+
+    #notice-content {
+        resize: none;
+    }
+
+    #title-hint, #content-hint {
+        color: red;
+    }
+
+
+    @@media only screen and (max-width:570px) {
+        .top-menu {
+            display: none;
+        }
+
+        #btn-sumbit {
+            width: 100%;
+            bottom: 0px;
+            right: 0px;
+        }
+    }
+</style>
+<!--引入顶部导航栏样式-->
+<link href="~/Content/css/top_menu.css" rel="stylesheet" />
+
+<!--导航栏返回按钮-->
+<div class="navbar-fixed-top">
+    <div class="row top-menu">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <a class="button button-primary button-circle button-border button-small" href="../Notice/Index" style="margin:5px;"><i class="fa fa-reply"></i></a>
+            返回
+        </div>
+    </div>
+</div>
+
+<!--公告内容添加区域-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    公告标题：
+                    <input id="notice-title" type="text" class="form-control" autofocus="autofocus" placeholder="最多20个字符" maxlength="20" />
+                    <span id="title-hint" class="hidden">标题信息不允许为空！</span>
+                    <br />
+                    公告详细内容：
+                    <textarea id="notice-content" class="form-control" rows="10" wrap="soft" autofocus="autofocus" maxlength="500" placeholder="最多500个字符"></textarea>
+                    <span id="content-hint" class="hidden">公告内容不允许为空！</span>
+                    <br />
+                    图片：
+                    <input id="notice-image" type="file" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--审批提交按钮-->
+<div class="button button-primary pull-right" id="btn-sumbit">发布</div>
+
+<!--外部js文件-->
+<script src="~/Scripts/top_menu-auto_hide.js"></script>
+
+<script>
+    $(function () {
+        //确认发布功能公告信息
+        $("#btn-sumbit").click(function () {
+            if ($("#notice-title").val().trim().length == 0) {
+                $("#title-hint").removeAttr("class");
+                $("#notice-title").val(null);
+            } else if ($("#notice-content").val().trim().length == 0) {
+                $("#title-hint").addClass("hidden");
+                $("#content-hint").removeAttr("class");
+                $("#notice-content").val(null);
+            } else {
+                $("#title-hint").addClass("hidden");
+                $("#content-hint").addClass("hidden");
+                //验证通过
+                $.post("../Notice/AddAnnou", { title: $("#notice-title").val(), content: $("#notice-content").val() }, function (result) {
+                    if (Boolean(result)) {
+                        window.location.href = "../Notice/Index";
+                    } else {
+                        alert("抱歉，添加失败，请重新尝试！");
+                    }
+                });
+            }
+        });
+
+    });
+</script>

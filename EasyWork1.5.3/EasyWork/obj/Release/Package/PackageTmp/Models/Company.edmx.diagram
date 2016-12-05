@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fc688e9f02074f37a916eb44abd015d3" Name="Diagram1">
+        <EntityTypeShape EntityType="CompanyDBModel.Announcement" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompanyDBModel.Department" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompanyDBModel.IsRead" Width="1.5" PointX="7.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompanyDBModel.MeetingRoom" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompanyDBModel.Registration" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompanyDBModel.Reimburse" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompanyDBModel.Subscribe" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompanyDBModel.Travelinfo" Width="1.5" PointX="5.25" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompanyDBModel.Userinfo" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompanyDBModel.Vacateinfo" Width="1.5" PointX="5.25" PointY="21.625" IsExpanded="true" />
+        <AssociationConnector Association="CompanyDBModel.FK__Announceme__U_ID__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__IsRead__A_ID__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Userinfo__D_ID__1367E606" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__IsRead__U_ID__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Subscribe__M_ID__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Registrati__U_ID__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Reimburse__A_U_I__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Reimburse__U_ID__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Subscribe__A_U_I__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Travelinf__A_U_I__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Travelinfo__U_ID__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Vacateinf__A_U_I__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="CompanyDBModel.FK__Vacateinfo__U_ID__22AA2996" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

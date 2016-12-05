@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "会议室预约";
+}
+
+
+<!--内嵌样式-->
+<head>
+    <style type="text/css">
+        #reserve-info {
+            font-size: 17px;
+            line-height: 22px;
+        }
+
+        #room-info {
+            font-size: 14px;
+            line-height: 18px;
+            padding-top: 8px;
+        }
+
+        #ico-hint {
+            width: 100%;
+            height: 105px;
+            display: table-cell;
+            vertical-align: bottom;
+        }
+
+            #ico-hint img {
+                width: 30px;
+                height: 30px;
+                margin: 5px 5px;
+            }
+
+        #menu-title p {
+            display: table-cell;
+            height: 41px;
+            vertical-align: middle;
+            padding-left: 10px;
+        }
+
+
+        #title-query {
+            margin: 3px 10px;
+        }
+
+        #menu-tools a {
+            position: fixed;
+            right: 5px;
+            bottom: 5px;
+        }
+
+        /*仅当显示宽度在500像素到767像素之间使用*/
+        @@media only screen and (min-width:500px) and (max-width:767px) {
+
+            #reserve-info, #room-info {
+                margin-left: 15%;
+            }
+        }
+
+        /*仅当显示宽度小于或等于767像素时使用*/
+        @@media only screen and (max-width:767px) {
+            #menu-title {
+                display: none;
+            }
+        }
+    </style>
+
+    <!--引入顶部导航栏样式-->
+    <link href="~/Content/css/top_menu.css" rel="stylesheet" />
+</head>
+
+
+<!--导航栏-->
+<div class="navbar-fixed-top">
+    <div class="row top-menu">
+        <div class="col-lg-6 col-md-6 col-sm-6" id="menu-title">
+            <!--<a class="button button-primary button-circle button-border button-small" href="" style="margin:5px;"><i class="fa fa-reply"></i></a>
+            返回-->
+            <p>已预约会议</p>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <!-- 搜索框-->
+            <div class="input-group" id="title-query">
+                <input type="text" class="form-control" id="txtSel" placeholder="请输入要查找的会议信息" />
+                <span class="input-group-btn">
+                    <input class="btn btn-primary" id="Sel" type="submit" value="搜索" />
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--显示会议室信息-->
+<div class="container">
+    <div class="row">
+        @foreach (var item in @ViewData["UserRoomSub"] as List<EasyWork.Models.UserRoomSub>)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        会议主题：@item.M_Title<span class="pull-right">
+                            @{
+                                DateTime start = DateTime.Parse(item.M_Date.ToShortDateString() + " " + item.M_StartTime);
+                                DateTime end = DateTime.Parse(item.M_Date.ToShortDateString() + " " + item.M_EndTime);
+                                string state = DateTime.Now < start ? "未开始" : DateTime.Now < end ? "进行中" : "已结束";
+                            }
+                            @state
+                        </span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <p id="reserve-info">
+                                    预约人：@item.Name<br />
+                                    日期：@item.M_Date.ToString("yyyy年MM月dd日")<br />
+                                    时间：@item.M_StartTime - @item.M_EndTime
+                                </p>
+                                <p id="room-info">
+                                    会议室位置：@item.M_Site<br />
+                                    座位数：@item.M_PeopleNum
+                                </p>
+                            </div>
+                            <!--设备信息显示-->
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div id="ico-hint">
+                                    <img src="~/Content/Images/@((@item.M_IsWIFI.ToString()=="True") ? "wifi.png" : "no_wifi.png")" alt="wifi" />
+                                    <img src="~/Content/Images/@((@item.M_Projection.ToString() == "True") ? "projection.png" : "no_projection.png")" alt="投影" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                }
+    </div>
+</div>
+
+<!--会议操作按钮组-->
+<div class="navbar-fixed-bottom container" id="menu-tools">
+    <a class="button button-primary button-circle button-large hidden" href="../MeetingRoom/AddRoom">添加</a>
+    <a class="button button-primary button-circle button-large hidden" href="../MeetingRoom/Subscribe?room_id=0">预约</a>
+    <a class="button button-primary button-circle button-large hidden" href="../MeetingRoom/RoomInfo">查询</a>
+    <a class="button button-primary button-circle button-large hidden">
+        <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+    </a>
+</div>
+
+
+<!--引入外部js文件-->
+<script src="~/Scripts/MetingRoom/Index.js"></script>
+<script>
+    $(function () {
+        if ('@ViewBag.User' != null) {
+            //判断该用户是否为管理员
+            if ("@Session["is_sys"].ToString()"=="True")
+                $("#menu-tools a:eq(3)").removeClass("hidden");
+        } else
+            $("#menu-tools a:eq(3)").removeClass("hidden");
+    });
+</script>

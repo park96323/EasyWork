@@ -1,0 +1,48 @@
+﻿body {
+    margin-top: 55px;
+    border-radius: 0;
+}
+
+
+.top-menu {
+    height: 41px;
+    border-bottom: 1px solid #E1E1E1;
+    background-color: #F8FBFF;
+}
+
+#btn-menu a {
+    height: 40px;
+    border: 0;
+    background-color: #F8FBFF;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    border-radius: 0;
+    display: table-cell;
+    vertical-align: middle;
+    color: #000000;
+    position: relative;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+    #btn-menu a:after {
+        content: "";
+        background: #008CEE;
+        display: block;
+        position: absolute;
+        padding-top: 300%;
+        padding-left: 350%;
+        margin-left: -20px !important;
+        margin-top: -120%;
+        opacity: 0;
+        transition: all 0.8s;
+    }
+
+    #btn-menu a:active:after {
+        padding: 0;
+        margin: 0;
+        opacity: 0.8;
+        transition: 0s;
+    }

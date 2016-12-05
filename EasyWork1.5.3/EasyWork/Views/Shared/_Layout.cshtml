@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!--第三方图标按钮样式-->
+    <link rel="stylesheet" href="~/Content/buttons.css" />
+    <style type="text/css">
+        body {
+            background-color: #F8FBFF;
+            font-size: 15px;
+            font-family: 'Microsoft YaHei', Verdana, Helvetica, Sans-Serif;
+            color: #232323;
+        }
+
+        /*覆盖框架中徽章的属性*/
+        .badge {
+            color: #fff;
+            background-color: #f00;
+            margin-left: 7px;
+        }
+
+        .bg_color {
+            background-color: #F8FBFF;
+        }
+    </style>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--加在前面以防止后面调用无效-->
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- 只有使用字体图标时才需要加载 Font-Awesome -->
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</body>
+</html>

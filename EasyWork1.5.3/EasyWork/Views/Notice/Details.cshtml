@@ -1,0 +1,66 @@
+﻿@using EasyWork.Models
+@model IEnumerable<AnnoUser>
+@{
+    ViewBag.Title = "公告详细信息";
+}
+<!--内嵌样式-->
+<style type="text/css">
+    @@media only screen and (max-width:570px) {
+        .top-menu {
+            display: none;
+        }
+    }
+</style>
+
+<!--引入头部导航样式文件-->
+<link href="~/Content/css/top_menu.css" rel="stylesheet" />
+
+
+<!--导航栏-->
+<div class="navbar-fixed-top">
+    <div class="row top-menu">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <a class="button button-primary button-circle button-border button-small" href="../Notice/Index" style="margin:5px;"><i class="fa fa-reply"></i></a>
+            返回
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!--显示公告详细信息-->
+    <div class="media">
+        <a class="pull-right">
+            <img class="media-object" src='@(Model.First().A_Image == "" ? "../Content/Images/notice.jpg" : Model.First().A_Image)' style="width:100px; height:100px;" />
+        </a>
+        <div class="media-body" style="margin-top:10px;">
+            <h4 class="media-heading"></h4>
+            <p>发布者：@Model.First().Name</p>
+            <p>发布时间：<br />@Model.First().A_Time.ToString("yyyy年MM月dd日 HH:mm:ss")</p>
+        </div>
+    </div>
+
+    <!--展示公告内容-->
+    <fieldset>
+        <legend>@Model.First().A_Title</legend>
+        <p>@Model.First().A_Content</p>
+    </fieldset>
+</div>
+
+<!--公告详细信息翻页-->
+<nav>
+    <ul class="pager navbar-fixed-bottom" style="margin:5px;">
+        <li class="previous"><a><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>上一页</a></li>
+        <li class="previous hidden"><button id="del" class="button button-circle"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></li>
+        <li class="next"><a>下一页 <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a></li>
+    </ul>
+</nav>
+
+<script>
+    $(function () {
+        if ('@ViewData["is_sys"]' == "True") {
+            $("ul li:eq(1)").removeClass("hidden");
+        }
+    });
+</script>
+<script src="~/Scripts/top_menu-auto_hide.js"></script>
+<script src="~/Scripts/Notice/Details.js"></script>

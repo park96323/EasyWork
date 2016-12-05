@@ -1,0 +1,343 @@
+﻿@{
+    ViewBag.Title = "我要发起审批";
+}
+
+
+<head>
+    <style type="text/css">
+        #btn-sumbit {
+            position: fixed;
+            right: 5px;
+            bottom: 5px;
+        }
+
+        @@media only screen and (max-width:570px) {
+            .top-menu {
+                display: none;
+            }
+
+            #btn-sumbit {
+                width: 100%;
+                bottom: 0px;
+                right: 0px;
+            }
+
+            #leave-err, #evection-err, reimbursed-err {
+                color: red;
+            }
+        }
+    </style>
+
+    <!--引入顶部导航栏样式文件-->
+    <link href="~/Content/css/top_menu.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+</head>
+
+<!--导航栏返回按钮-->
+<div class="navbar-fixed-top">
+    <div class="row top-menu">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <a class="button button-primary button-circle button-border button-small" href="../Approve/Index" style="margin:5px;"><i class="fa fa-reply"></i></a>
+            返回
+        </div>
+    </div>
+</div>
+
+<!--显示添加审批信息的区域-->
+<div class="container">
+    <!--添加请假审批-->
+    <div class="row hidden" id="leave">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    请假申请
+                </div>
+                <div class="panel-body">
+                    请假类型：
+                    <select id="leave-type" class="form-control">
+                        <option>事假</option>
+                        <option>病假</option>
+                        <option>年假</option>
+                        <option>产假</option>
+                        <option>陪产假</option>
+                    </select>
+                    <br /><br />
+                    开始时间：
+                    <input id="leave-strat-date" type="text" class="form-control" placeholder="请选择开始时间..." onclick="WdatePicker({ skin: 'whyGreen', dateFmt: 'yyyy-MM-dd' })">
+                    <br />
+                    结束时间：
+                    <input id="leave-end-date" type="text" class="form-control" placeholder="请选择结束时间..." onclick="WdatePicker({ skin: 'whyGreen', dateFmt: 'yyyy-MM-dd' })">
+                    <br />
+                    请假天数：
+                    <input id="leave-days" type="text" class="form-control" placeholder="请输入请假天数..." readonly="readonly" />
+                    <br />
+                    请假事由：
+                    <textarea id="leave-reason" type="text" wrap="soft" autofocus="autofocus" maxlength="200" placeholder="请输入请假的事理（最多200个字符）" style="width:100%;resize:none;"></textarea>
+                    <br />
+                    <span id="leave-err"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加出差审批-->
+    <div class="row hidden" id="evection">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    出差审批
+                </div>
+                <div class="panel-body">
+                    出差地点：
+                    <input id="input-site" type="text" class="form-control" placeholder="请输入出差的详细地址..." />
+                    <br />
+                    开始时间：
+                    <input id="evection-strat-date" type="text" class="form-control" placeholder="请选择开始时间..." onclick="WdatePicker({ skin: 'whyGreen', dateFmt: 'yyyy-MM-dd' })">
+                    <br />
+                    结束时间：
+                    <input id="evection-end-date" type="text" class="form-control" placeholder="请选择结束时间..." onclick="WdatePicker({ skin: 'whyGreen', dateFmt: 'yyyy-MM-dd' })">
+                    <br />
+                    出差天数：
+                    <input id="evection-days" type="text" class="form-control" placeholder="请输入出差天数..." readonly="readonly" />
+                    <br />
+                    出差事由：
+                    <textarea id="evection-reason" type="text" wrap="soft" autofocus="autofocus" maxlength="200" placeholder="请输入出差的事理（最多200个字符）" style="width:100%;resize:none;"></textarea>
+                    <span id="evection-err"></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--添加报销审批-->
+    <div class="row hidden" id="reimbursed">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    报销审批
+                </div>
+                <div class="panel-body">
+                    报销费用：
+                    <input id="reimbursed-money" type="text" class="form-control" placeholder="请输入你要报销的金额..." />
+                    <br />
+                    报销类型：
+                    <select id="reimbursed-type" class="form-control">
+                        <option>采购经费</option>
+                        <option>活动经费</option>
+                        <option>出差经费</option>
+                    </select>
+                    <br /><br />
+                    备注信息：
+                    <textarea id="reimbursed-remark" type="text" wrap="soft" autofocus="autofocus" maxlength="200" placeholder="请输入备注信息（最多200个字符）" style="width:100%;resize:none;"></textarea>
+                    <span id="reimbursed-err"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--审批提交按钮-->
+<div class="button button-primary pull-right" id="btn-sumbit">提交</div>
+
+<!--引入外部js文件-->
+    <!--钉钉移动端CDN服务-->
+    <script src="http://g.alicdn.com/ilw/ding/0.9.9/scripts/dingtalk.js"></script>
+<script src="~/Scripts/top_menu-auto_hide.js"></script>
+<script src="~/Content/My97DatePicker/WdatePicker.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+
+<script>
+
+    //钉钉移动端就绪函数
+    dd.ready(function () {
+        //移除默认的my97时间选择器
+        $("#leave-strat-date,#leave-end-date,#evection-strat-date,#evection-end-date").removeAttr("onclick");
+        $("#leave-strat-date,#leave-end-date,#evection-strat-date,#evection-end-date").click(function () {
+            var id = $(this).attr("id");
+            //日期选择器
+            dd.biz.util.datepicker({
+                format: "yyyy-MM-dd",
+                onSuccess: function (date) {
+                    //将日期添加到当前选择的文本框
+                    $("#" + id).val(date.value);
+                }, onFail: function (err) {
+                }
+            });
+        });
+    });
+
+
+
+    $(function () {
+        //根据选择的类型显示对应的区域
+        $('#@ViewData["type"].ToString()').removeClass("hidden");
+
+        $("#btn-sumbit").click(function () {
+            switch ('@ViewData["type"].ToString()') {
+                case "leave":
+                    AddVacateinfo();
+                    break;
+                case "evection":
+                    AddTravelinfo();
+                    break;
+                default:
+                    AddReimburse();
+                    break;
+            }
+        });
+        //请假JS验证
+        var leaveGoInput = $("#leave-strat-date");
+        var leaveBackInput = $("#leave-end-date");
+        var leaveDaysInput = $("#leave-days");
+        var leaveErrLable = $("#leave-err");
+        leaveGoInput.blur(function () {
+            if (leaveGoInput.val() == "") {
+                leaveErrLable.html("请填写开始时间");
+            }
+            else {
+                leaveErrLable.html("");
+            }
+        })
+        leaveBackInput.blur(function () {
+            if (leaveBackInput.val() != "" && leaveGoInput.val() != "") {
+                var leaveTime = Date.parse(leaveGoInput.val());
+                var backTime = Date.parse(leaveBackInput.val());
+                var days = Math.round((backTime - leaveTime) / 1000 / 60 / 60 / 24);
+                if (days < 0) {
+                    leaveErrLable.html("您的信息填写错误");
+                }
+                else {
+                    leaveDaysInput.val(days);
+                    leaveErrLable.html("");
+                }
+            }
+            else {
+                leaveErrLable.html("请填写结束时间");
+            }
+
+        })
+        leaveDaysInput.blur(function () {
+            if (leaveDaysInput.val() == "") {
+                leaveErrLable.html("请填写请假时间");
+            }
+            else {
+                leaveErrLable.html("");
+            }
+        })
+
+
+        //添加请假审批的方法
+        function AddVacateinfo() {
+            var type = $("#leave-type").val();
+            var start = $("#leave-strat-date").val();
+            var end = $("#leave-end-date").val();
+            var days = $("#leave-days").val();
+            var remark = $("#leave-reason").val();
+            //post添加请假申请
+            $.post("../Approve/AddVacateinfo", { V_Type: type, V_StartTime: start, V_EndTime: end, V_Days: days, V_Remark: remark }, function (data) {
+                if (data == "ok") {
+                    swal({ title: "请假申请已提交！", type: "success", timer: 1500, showConfirmButton: false });
+                    setTimeout("location.href='../Approve/Index';", 1500);
+                } else {
+                    swal("提交失败，请重新尝试！", "温馨提示：", "error");
+                }
+            });
+        }
+
+
+        //出差JS验证
+        var evectionSiteInput = $("#input-site");
+        var evectionGoInput = $("#evection-strat-date");
+        var evectionBackInput = $("#evection-end-date");
+        var evectionDaysInput = $("#evection-days");
+        var evectionErrLable = $("#evection-err");
+        evectionSiteInput.blur(function () {
+            if (evectionSiteInput.val() == "") {
+                evectionErrLable.html("请填写出差地点");
+            }
+            else {
+                evectionErrLable.html("");
+            }
+        })
+        evectionGoInput.blur(function () {
+            if (evectionGoInput.val() == "") {
+                evectionErrLable.html("请填写开始时间");
+            }
+            else {
+                evectionErrLable.html("");
+            }
+        })
+        evectionBackInput.blur(function () {
+            if (evectionBackInput.val() != "" && evectionGoInput.val() != "") {
+                var evectionTime = Date.parse(evectionGoInput.val());
+                var backTime = Date.parse(evectionBackInput.val());
+                var days = Math.round((backTime - evectionTime) / 1000 / 60 / 60 / 24);
+                if (days < 0) {
+                    evectionErrLable.html("您的信息填写错误");
+                }
+                else {
+                    evectionDaysInput.val(days);
+                    evectionErrLable.html("");
+                }
+            }
+            else {
+                evectionErrLable.html("请填写结束时间");
+            }
+
+        })
+        evectionDaysInput.blur(function () {
+            if (evectionDaysInput.val() == "") {
+                evectionErrLable.html("请填写出差时间");
+            }
+            else {
+                evectionErrLable.html("");
+            }
+        })
+        //添加出差审批的方法
+        function AddTravelinfo() {
+            var site = $("#input-site").val();
+            var start = $("#evection-strat-date").val();
+            var end = $("#evection-end-date").val();
+            var days = $("#evection-days").val();
+            var remark = $("#evection-reason").val();
+            $.post("../Approve/AddTravelinfo", { T_Site: site, T_StartTime: start, T_EndTime: end, T_Days: days, T_Remark: remark }, function (data) {
+                if (data == "ok") {
+                    swal({ title: "出差审批提交成功！", type: "success", timer: 1500, showConfirmButton: false });
+                    setTimeout(" location.href = '../Approve/Index';", 1500);
+                }
+                else {
+                    swal("提交失败，请重新尝试！", "温馨提示：", "error");
+                }
+            });
+        }
+
+
+        var reimbursedInput = $("#reimbursed-money");
+        var reimbursedErrLable = $("#evection-err");
+        reimbursedInput.blur(function () {
+            if (reimbursedInput.val() == "") {
+                reimbursedErrLable.html("请填写报销金额");
+            }
+            else {
+                reimbursedErrLable.html("");
+            }
+        })
+        //添加报销审批的方法
+        function AddReimburse() {
+            var money = $("#reimbursed-money").val();
+            var type = $("#reimbursed-type").val();
+            var remark = $("#reimbursed-remark").val();
+            $.post("../Approve/AddReimburse", { R_Money: money, R_Type: type, R_Remark: remark }, function (data) {
+                if (data == "ok") {
+                    swal({ title: "报销审批提交成功！", type: "success", timer: 1500, showConfirmButton: false });
+                    setTimeout(" location.href = '../Approve/Index';", 1500);
+                }
+                else {
+                    swal("提交失败，请重新尝试！", "温馨提示：", "error");
+                }
+            });
+        }
+
+
+
+    });
+</script>
+

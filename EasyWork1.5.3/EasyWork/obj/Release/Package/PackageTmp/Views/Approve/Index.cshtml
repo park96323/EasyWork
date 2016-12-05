@@ -1,0 +1,421 @@
+﻿@{
+    ViewBag.Title = "审批";
+}
+
+<!--内嵌样式-->
+<style type="text/css">
+    #title-query {
+        height: 40px;
+        border: 0;
+        background-color: #F8FBFF;
+    }
+
+    /*貌似获取不到这个类的属性*/
+    .menu-a-border {
+        height: 40px;
+        color: #1A97F0;
+        border-bottom: 2px solid #1A97F0;
+    }
+
+    #title-query {
+        margin-right: 10px;
+    }
+
+    #add-approve a {
+        position: fixed;
+        right: 5px;
+        bottom: 5px;
+    }
+
+
+    /*仅当显示宽度小于768像素时使用*/
+    @@media only screen and (max-width:768px) {
+        #main-conetnt {
+            margin-top: 40px;
+        }
+
+        #title-query {
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+    }
+</style>
+
+<!--外部样式文件-->
+<link href="~/Content/css/top_menu.css" rel="stylesheet" />
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+
+<!--导航菜单-->
+<div class="navbar-fixed-top">
+    <div class="row top-menu">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-sm-8">
+            <!--菜单按钮组-->
+            <div class="btn-group btn-group-justified" id="btn-menu">
+                <a class="active" data-toggle="tab" href="#approval" id="btn-approval" style="height: 40px;color: #1A97F0;border-bottom: 2px solid #1A97F0;">
+                    待审批@{if (@ViewData["count"].ToString() != "0")
+                    {<span class="badge">@(ViewData["count"])</span>}}
+                </a>
+                <a data-toggle="tab" href="#approved" id="btn-approved">已审批</a>
+                <a data-toggle="tab" href="#effluent" id="btn-effluent">发起的审批</a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-sm-4">
+            <!-- 搜索框-->
+            <div class="input-group" id="title-query">
+                <input type="text" class="form-control" placeholder="请输入要查找的标题信息" style="margin-top:3px;" />
+                <span class="input-group-btn">
+                    <input class="btn btn-primary" type="submit" value="搜索" />
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--内容显示区域-->
+<div class="container">
+    <div class="tab-content" id="main-conetnt">
+        <!--显示待审批内容-->
+        <div class="tab-pane fade in active" id="approval">
+            <div class="row">
+                <!--请假面板-->
+                @{
+                    int index = 0;
+                    List<EasyWork.Models.Userinfo> list = (@ViewData["IsVacatename"] as List<EasyWork.Models.Userinfo>);
+                    foreach (var item in ViewData["IsVacate"] as List<EasyWork.Models.Vacateinfo>)
+                    {
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    @(list[index].Name)发起的请假审批
+                                </div>
+                                <div class="panel-body">
+                                    <p>请假类型：@item.V_Type</p>
+                                    <p>开始时间：@item.V_StartTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                    <p>结束时间：@item.V_EndTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                    <p>请假天数：@(item.V_Days)天</p>
+                                </div>
+                                <div class="panel-footer">
+                                    <a class="button  button-pill button-small" onclick="IsPassVacate(1,@item.V_ID,1)">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:lime;"></span>
+                                    </a>
+                                    <a class="button button-pill button-small" onclick="IsPassVacate(1,@item.V_ID,2)">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        index++;
+                    }
+                }
+                <!--出差面板-->
+                @{
+                    int index1 = 0;
+                    List<EasyWork.Models.Userinfo> list1 = (@ViewData["IsTravelname"] as List<EasyWork.Models.Userinfo>);
+                    foreach (var item in ViewData["IsTravel"] as List<EasyWork.Models.Travelinfo>)
+                    {
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    @(list1[index1].Name)发起的出差审批
+                                </div>
+                                <div class="panel-body">
+                                    <p>出差地点：@item.T_Site</p>
+                                    <p>开始时间：@item.T_StartTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                    <p>结束时间：@item.T_EndTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                    <p>出差天数：@(item.T_Days)天</p>
+                                </div>
+                                <div class="panel-footer">
+                                    <a class="button  button-pill button-small" onclick="IsPassTravel(2,@item.T_ID,1)">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:lime;"></span>
+                                    </a>
+                                    <a class="button button-pill button-small" onclick="IsPassTravel(2,@item.T_ID,2)">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        index1++;
+                    }
+                }
+
+                <!--报销面板-->
+                @{
+                    int index2 = 0;
+                    List<EasyWork.Models.Userinfo> list2 = (@ViewData["IsReimbursename"] as List<EasyWork.Models.Userinfo>);
+                    foreach (var item in ViewData["IsReimburse"] as List<EasyWork.Models.Reimburse>)
+                    {
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    @(list2[index2].Name)发起的报销审批
+                                </div>
+                                <div class="panel-body">
+                                    <p>报销类型：@item.R_Type </p>
+                                    <p>报销金额：@(item.R_Money)元</p>
+                                    <p>&nbsp;</p>
+                                    <p>&nbsp;</p>
+                                </div>
+                                <div class="panel-footer">
+                                    <a class="button  button-pill button-small" onclick="IsPassTravel(3,@item.R_ID,1)">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:lime;"></span>
+                                    </a>
+                                    <a class="button button-pill button-small" onclick="IsPassTravel(3,@item.R_ID,2)">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        index2++;
+                    }
+                }
+            </div>
+        </div>
+        <!--显示已审批内容-->
+        <div class="tab-pane fade" id="approved">
+            <div class="row">
+                <!--请假面板-->
+                @foreach (var item in ViewData["AlreadyVacate"] as List<EasyWork.Models.Vacateinfo>)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                请假申请
+                                @if (@item.IsAdmission == "1")
+                                {
+                                    <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true" style="color:lime;"></span>
+                                }
+                                else
+                                {
+                                    <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" style="color:red;"></span>
+                                }
+                            </div>
+                            <div class="panel-body">
+                                <p>请假类型：@item.V_Type</p>
+                                <p>开始时间：@item.V_StartTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                <p>结束时间：@item.V_EndTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                <p>请假天数：@(item.V_Days)天</p>
+                            </div>
+                            <div class="panel-footer">
+                                <p>由李颖审批</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!--出差面板-->
+                @foreach (var item in ViewData["AlreadyTravel"] as List<EasyWork.Models.Travelinfo>)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                出差审批
+                                @if (@item.IsAdmission == "1")
+                                {
+                                    <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true" style="color:lime;"></span>
+                                }
+                                else
+                                {
+                                    <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" style="color:red;"></span>
+                                }
+                            </div>
+                            <div class="panel-body">
+                                <p>出差地点：@item.T_Site</p>
+                                <p>开始时间：@item.T_StartTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                <p>结束时间：@item.T_EndTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                <p>出差天数：@(item.T_Days)天</p>
+                            </div>
+                            <div class="panel-footer">
+                                <p>由李颖审批</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!--报销面板-->
+                @foreach (var item in ViewData["AlreadyReimburse"] as List<EasyWork.Models.Reimburse>)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                报销审批
+                                @if (@item.IsAdmission == "1")
+                                {
+                                    <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true" style="color:lime;"></span>
+                                }
+                                else
+                                {
+                                    <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" style="color:red;"></span>
+                                }
+                            </div>
+                            <div class="panel-body">
+                                <p>报销类型：@item.R_Type</p>
+                                <p>报销金额：@(item.R_Money)元</p>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;</p>
+                            </div>
+                            <div class="panel-footer">
+                                <p>由李颖审批</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!--显示我发起的审批内容-->
+        <div class="tab-pane fade" id="effluent">
+            <div class="row">
+                <!--请假面板-->
+                @foreach (var item in ViewData["MyVacate"] as List<EasyWork.Models.Vacateinfo>)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                我发起的请假申请
+                            </div>
+                            <div class="panel-body">
+                                <p>请假类型：@item.V_Type</p>
+                                <p>开始时间：@item.V_StartTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                <p>结束时间：@item.V_EndTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                <p>请假天数：@(item.V_Days)天</p>
+                            </div>
+                            <div class="panel-footer">
+                                @switch (@item.IsAdmission)
+                                {
+                                    case "3":
+                                        <p>正在等待审批中...</p>
+                                        break;
+                                    case "1":
+                                    <p style="color:lime;">已通过</p>
+                                        break;
+                                    default:
+                                    <p style="color:red;">已拒绝</p>
+                                        break;
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!--出差面板-->
+                @foreach (var item in ViewData["MyTravel"] as List<EasyWork.Models.Travelinfo>)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                我发起的出差审批
+                            </div>
+                            <div class="panel-body">
+                                <p>出差地点：@item.T_Site</p>
+                                <p>开始时间：@item.T_StartTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                <p>结束时间：@item.T_EndTime.ToString("yyyy年MM月dd日 HH:mm")</p>
+                                <p>出差天数：@(item.T_Days)天</p>
+                            </div>
+                            <div class="panel-footer">
+                                @switch (@item.IsAdmission)
+                                {
+                                    case "3":
+                                        <p>正在等待审批中...</p>
+                                        break;
+                                    case "1":
+                                    <p style="color:lime;">已通过</p>
+                                        break;
+                                    default:
+                                    <p style="color:red;">已拒绝</p>
+                                        break;
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!--报销面板-->
+                @foreach (var item in ViewData["MyReimburse"] as List<EasyWork.Models.Reimburse>)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                我发起的报销审批
+                            </div>
+                            <div class="panel-body">
+                                <p>报销类型：@item.R_Type</p>
+                                <p>报销金额：@(item.R_Money)元</p>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;</p>
+                            </div>
+                            <div class="panel-footer">
+                                @switch (@item.IsAdmission)
+                                {
+                                    case "3":
+                                        <p>正在等待审批中...</p>
+                                        break;
+                                    case "1":
+                                    <p style="color:lime;">已通过</p>
+                                        break;
+                                    default:
+                                    <p style="color:red;">已拒绝</p>
+                                        break;
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--发起审批操作-->
+<div class="navbar-fixed-bottom container" id="add-approve">
+    <a id="leave" class="button button-primary button-circle button-large hidden" href="/Approve/AddApprove?type=leave">请假</a>
+    <a id="evection" class="button button-primary button-circle button-large hidden" href="/Approve/AddApprove?type=evection">出差</a>
+    <a id="reimbursed" class="button button-primary button-circle button-large hidden" href="/Approve/AddApprove?type=reimbursed">报销</a>
+    <a class="button button-primary button-circle button-large">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </a>
+</div>
+
+<!--引入外部js文件-->
+<script src="~/Scripts/Approve/Index.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script>
+    function IsPassVacate(type, id, isok) {
+        $.post("../Approve/ApproveSure", { type: type, id: id, isok: isok }, function (is) {
+            if (is == "ok") {
+                if (isok == "1") {
+                    swal({ title: "审批已通过！", type: "success", timer: 1500, showConfirmButton: false });
+                }
+                else {
+                    swal({ title: "审批已拒绝！", type: "success", timer: 1500, showConfirmButton: false });
+                }
+                setTimeout('location.href = "../Approve/Index"; ', 1500)
+            }
+        })
+    }
+    function IsPassTravel(type, id, isok) {
+        $.post("../Approve/ApproveSure", { type: type, id: id, isok: isok }, function (is) {
+            if (is == "ok") {
+                if (isok == "1") {
+                    swal({ title: "审批已通过！", type: "success", timer: 1500, showConfirmButton: false });
+                }
+                else {
+                    swal({ title: "审批已拒绝！", type: "success", timer: 1500, showConfirmButton: false });
+                }
+                setTimeout('location.href = "../Approve/Index"; ', 1500)
+            }
+        })
+    }
+    function IsPassReimburse(type, id, isok) {
+        $.post("../Approve/ApproveSure", { type: type, id: id, isok: isok }, function (is) {
+            if (is == "ok") {
+                if (isok == "1") {
+                    swal({ title: "审批已通过！", type: "success", timer: 1500, showConfirmButton: false });
+                }
+                else {
+                    swal({ title: "审批已拒绝！", type: "success", timer: 1500, showConfirmButton: false });
+                }
+                setTimeout('location.href = "../Approve/Index"; ', 1500)
+            }
+        })
+    }
+</script>

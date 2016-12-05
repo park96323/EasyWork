@@ -1,0 +1,147 @@
+﻿@using EasyWork.Models;
+@{
+    ViewBag.Title = "会议室信息";
+}
+
+<!--内嵌样式-->
+<style type="text/css">
+    #ico-hint {
+        width: 100%;
+        height: 105px;
+        display: table-cell;
+        vertical-align: bottom;
+    }
+
+        #ico-hint img {
+            width: 30px;
+            height: 30px;
+            margin: 5px 5px;
+        }
+
+    /*仅当显示宽度在500像素到767像素之间使用*/
+    @@media only screen and (min-width:500px) and (max-width:767px) {
+
+        #room-info p {
+            margin-left: 15%;
+        }
+    }
+
+    @@media only screen and (max-width:570px) {
+    }
+</style>
+
+<!--引入外部导航栏样式文件-->
+<link href="~/Content/css/top_menu.css" rel="stylesheet" />
+
+<!--导航栏-->
+<div class="navbar-fixed-top">
+    <div class="row top-menu">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="btn-group btn-group-justified" id="btn-menu">
+                <a id="all-room" class="active" data-toggle="tab" href="#all-room-info" style="height: 40px;color: #1A97F0;border-bottom: 2px solid #1A97F0;">全部</a>
+                <a id="has-wifi" data-toggle="tab" href="#wifi-room-info">有WIFI</a>
+                <a id="has-projector" data-toggle="tab" href="#projector-room-info">有投影仪</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--显示会议室信息-->
+<div class="container">
+    <div class="tab-content" id="main-content">
+        <!--显示所有会议室信息-->
+        <div class="tab-pane fade in active" id="all-room-info">
+            <div class="row">
+                @foreach (var item in ViewData["all"] as IEnumerable<MeetingRoom>)
+            {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a href="../MeetingRoom/Subscribe?room_id=@(item.M_ID)">@item.M_Name</a>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" id="room-info">
+                                        <p>位置：@item.M_Site</p>
+                                        <p>楼层：@item.M_Floor</p>
+                                        <p>可容纳人数：@(item.M_PeopleNum)人</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <div id="ico-hint">
+                                            <img src="~/Content/Images/@((@item.M_IsWIFI.ToString()=="True") ? "wifi.png" : "no_wifi.png")" alt="wifi" />
+                                            <img src="~/Content/Images/@((@item.M_Projection.ToString() == "True") ? "projection.png" : "no_projection.png")" alt="投影" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!--显示有wifi的会议室-->
+        <div class="tab-pane fade" id="wifi-room-info">
+            <div class="row">
+
+                @foreach (MeetingRoom item in (IEnumerable<MeetingRoom>)ViewData["wifi"])
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a href="../MeetingRoom/Subscribe?room_id=@(item.M_ID)">@item.M_Name</a>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" id="room-info">
+                                        <p>位置：@item.M_Site</p>
+                                        <p>楼层：@item.M_Floor</p>
+                                        <p>可容纳人数：@(item.M_PeopleNum)人</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <div id="ico-hint">
+                                            <img src="~/Content/Images/@((@item.M_IsWIFI.ToString()=="True") ? "wifi.png" : "no_wifi.png")" alt="wifi" />
+                                            <img src="~/Content/Images/@((@item.M_Projection.ToString() == "True") ? "projection.png" : "no_projection.png")" alt="投影" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!--显示有投影仪的会议室-->
+        <div class="tab-pane" id="projector-room-info">
+            <div class="row">
+                @foreach (MeetingRoom item in (IEnumerable<MeetingRoom>)ViewData["pro"])
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a href="../MeetingRoom/Subscribe?room_id=@(item.M_ID)">@item.M_Name</a>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" id="room-info">
+                                        <p>位置：@item.M_Site</p>
+                                        <p>楼层：@item.M_Floor</p>
+                                        <p>可容纳人数：@(item.M_PeopleNum)人</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <div id="ico-hint">
+                                            <img src="~/Content/Images/@((@item.M_IsWIFI.ToString()=="True") ? "wifi.png" : "no_wifi.png")" alt="wifi" />
+                                            <img src="~/Content/Images/@((@item.M_Projection.ToString() == "True") ? "projection.png" : "no_projection.png")" alt="投影" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--引入外部js文件-->
+<script src="~/Scripts/MetingRoom/RoomInfo.js"></script>

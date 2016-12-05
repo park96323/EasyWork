@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "签到内容";
+}
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+
+<!--内嵌样式-->
+<style type="text/css">
+    #top_info{
+        margin:20px 0;
+    }
+
+    #top_info span {
+        padding: 0 10px;
+    }
+</style>
+
+<!--添加签到内容-->
+<div id="top_info">
+    <p onclick="location.href='../Sign/Index'"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>签到</p>
+    <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span>签到时间：<span id="time">@(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")) </span></p>
+    <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span id="site">签到地点：<text>@ViewData["site"]</text></p>
+</div>
+<textarea id="txt_remarks" type="text" wrap="soft" autofocus="autofocus" maxlength="150" placeholder="请输入备注信息(最大150字符)"></textarea>
+<!--提交按钮-->
+<div class="button button-highlight navbar-fixed-bottom" id="btn_submit">提交</div>
+
+<!--引入外部js文件-->
+<script src="~/Scripts/Sign/Content.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>

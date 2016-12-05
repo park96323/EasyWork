@@ -1,0 +1,121 @@
+﻿@model IEnumerable<EasyWork.Models.AnnoUser>
+
+@{
+    ViewBag.Title = "公告列表";
+}
+
+<!--外部样式文件-->
+<link href="~/Content/css/top_menu.css" rel="stylesheet" />
+
+
+<!--导航菜单栏-->
+<div class="navbar-fixed-top">
+    <div class="row top-menu">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <!--菜单按钮组-->
+            <div class="btn-group btn-group-justified" id="btn-menu">
+                <a class="active" data-toggle="tab" href="#block_unread" id="notioce_unread" style="height: 40px;color: #1A97F0;border-bottom: 2px solid #1A97F0;">
+                    未读@{if (@Model.Count().ToString() != "0")
+                        {<span class="badge">@Model.Count()</span>}}
+                </a>
+                <a data-toggle="tab" href="#block_read" id="notioce_read">已读</a>
+                <a data-toggle="tab" href="#block_all" id="notioce_all">全部</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--选项卡面板，用于存放选项内容-->
+<div class="tab-content" id="main_content">
+    <!--未读公告信息区-->
+    <div class="active" id="block_unread">
+        @foreach (var item in @Model)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="media" style="padding:12px 5px;border-bottom:1px solid #808184;margin:0px 3px;width:97%;">
+                    <a class="pull-left" href="/Notice/Details?id=@(item.A_ID) &i=0">
+                        <img class="img-circle media-object" src='@( item.A_Image==""?"../Content/Images/notice.jpg":item.A_Image)' style="width:80px;height:80px;display:block;" />
+                    </a>
+                    <div class="media-body" style="margin-top:10px;">
+                        <h4 class="media-heading">@item.A_Title</h4>
+                        <p>@item.Name</p>
+                        <p>@item.A_Time.ToString("yyyy年MM月dd日 HH:mm:ss")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!--展示已读公告区-->
+    <div class="tab-pane fade" id="block_read">
+    </div>
+    <!--展示全部公告区-->
+    <div class="tab-pane fade" id="block_all">
+    </div>
+
+</div>
+
+
+<div class="navbar-fixed-bottom container" id="btn_tools">
+    <button id="btn_add" class="button button-primary button-circle button-large hidden" aria-hidden="true" style="position:fixed;right:5px;bottom:5px;z-index:0;">添加</button>
+    <button id="notioce_unread2" class="button button-primary button-circle button-large hidden" data-toggle="pill" data-target="#block_unread" style="position:fixed;right:5px;bottom:5px;z-index:0;">未读</button>
+    <button id="notioce_read2" class="button button-primary button-circle button-large hidden" data-toggle="pill" data-target="#block_read" style="position:fixed;right:5px;bottom:5px;z-index:0;">已读</button>
+    <button id="notioce_all2" class="button button-primary button-circle button-large hidden" data-toggle="pill" data-target="#block_all" style="position:fixed;right:5px;bottom:5px;z-index:0;">全部</button>
+    <button class="button button-primary button-circle button-large" style="position:fixed;right:5px;bottom:5px;z-index:0;">
+        <span aria-hidden="true"></span>
+    </button>
+</div>
+
+
+
+
+<!--引入外部js文件-->
+<script src="~/Scripts/Notice/Index.js"></script>
+@if (Session["Device"].ToString() == "PC")
+{
+    <script src="http://g.alicdn.com/dingding/dingtalk-pc-api/2.3.1/index.js"></script>
+    ViewBag.ScriptHead = "DingTalkPC";
+}
+else
+{
+    <!--钉钉移动端CDN服务-->
+    <script src="http://g.alicdn.com/ilw/ding/0.9.9/scripts/dingtalk.js"></script>
+    ViewBag.ScriptHead = "dd";
+}
+<script>
+
+    @{<text>@ViewBag.ScriptHead</text>}.ready(function () {
+        if ($(document.body).width() > 570) {
+            if ('@Session["is_sys"]' == "True")
+                $("#btn_tools button:eq(4)").removeClass("hidden");
+            else
+                $("#btn_tools button:eq(4)").addClass("hidden");
+        }
+        else {
+            if ('@Session["is_sys"]' == "True")
+                $("#btn_tools button:eq(0)").removeClass("hidden");
+            else
+                $("#btn_tools button:eq(0)").addClass("hidden");
+        }
+
+        @{<text>@ViewBag.ScriptHead</text>}.ui.pullToRefresh.enable({
+            onSuccess: function () {
+                alert("下拉刷新成功");
+                location.reload();
+                dd.ui.pullToRefresh.stop()
+            },
+            onFail: function (err) {
+                alert("下拉刷新错误代码：" + err.errorCode + "\n" + err.errorMessage);
+            }
+        })
+
+
+    });
+
+
+    //错误回调函数
+    @{<text>@ViewBag.ScriptHead</text>}.error(function (err) {
+        alert("全局错误代码：" + err.errorCode + "\n" + err.errorMessage);
+    });
+</script>

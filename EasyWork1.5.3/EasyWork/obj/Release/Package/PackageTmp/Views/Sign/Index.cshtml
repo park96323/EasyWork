@@ -1,0 +1,180 @@
+﻿@model IEnumerable<EasyWork.Models.RegUser>
+
+@{
+    ViewBag.Title = "签到";
+}
+
+<!--内嵌样式-->
+<style type="text/css">
+    #sign_date {
+        text-align: center;
+        margin: 20px auto;
+    }
+
+        #sign_date img {
+            width: 24px;
+            height: 22px;
+        }
+
+    #addres, #sign_info {
+        border: 1px solid #FEC04E;
+    }
+
+    #addres {
+        height: 90px;
+        margin: 50px auto 30px auto;
+    }
+
+    #sign_info {
+        height: 120px;
+        margin: 20px auto 0 auto;
+        vertical-align: middle;
+    }
+
+        #sign_info img {
+            width: 96px;
+            height: 96px;
+            margin: 12px 10px;
+        }
+
+        #sign_info h4 {
+            margin-top: 30px;
+        }
+
+
+    #addres-ico {
+        width: 25%;
+        height: 90px;
+        float: left;
+    }
+
+    #addres-text {
+        width: 75%;
+        height: auto;
+        float: right;
+        margin: 25px 0;
+    }
+
+    #addres-ico img {
+        width: 56px;
+        height: 45px;
+        margin: 22.5px 12px;
+    }
+
+    #sign_number {
+        color: #FEC04E;
+        font-size: 27px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+</style>
+
+<!--网页内容区域-->
+<div class="container">
+    <div class="row" id="sign_date">
+        <div class="col-xs-12 col-sm-12">
+            <!--显示日期-->
+            <img src="~/Content/Images/week_ico.png" alt="日历图标" />
+            <span>@( DateTime.Now.ToLongDateString()) </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!--显示签到按钮-->
+            <a class="button button-circle button-highlight" id="btn_sign">
+                <img src="~/Content/Images/sgin_ico.png" alt="图标" style="margin-bottom:20px;" />
+                <div class="caption">
+                    <span><img src="~/Content/Images/clock_ico.png" alt="时钟图标" style="width:20px;height:20px;" /> @( DateTime.Now.ToShortTimeString())</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!--显示地址信息-->
+            <div id="addres">
+                <div id="addres-ico"><img src="~/Content/Images/location_ico.png" alt="图标" /></div>
+                <div id="addres-text"><span id="site"></span></div>
+            </div>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!--显示用户名及今日签到次数-->
+            <div class="media" id="sign_info">
+                <a class="pull-left">
+                    <img class="media-object" src="~/Content/Images/user_ico.png" alt="图标" />
+                </a>
+                <div class="media-body">
+                    <h4 id="user_name">@ViewBag.U_Name</h4>
+                    <p>今日签到<span id="sign_number">@ViewBag.SignCount</span>次</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入外部js文件-->
+<script src="~/Scripts/Sign/Index.js"></script>
+@if (Session["Device"].ToString() == "PC")
+{
+    <script src="http://g.alicdn.com/dingding/dingtalk-pc-api/2.3.1/index.js"></script>
+    ViewBag.ScriptHead = "DingTalkPC";
+}
+else
+{
+    <!--钉钉移动端CDN服务-->
+    <script src="http://g.alicdn.com/ilw/ding/0.9.9/scripts/dingtalk.js"></script>
+    ViewBag.ScriptHead = "dd";
+}
+<script>
+    //获取权限验证配置信息
+    var _config = {
+        agentId: '@ViewBag.Config["appId"]',
+        corpId: '@ViewBag.Config["corpId"]',
+        timeStamp: '@ViewBag.Config["timeStamp"]',
+        nonceStr: '@ViewBag.Config["nonceStr"]',
+        signature: '@ViewBag.Config["signature"]'
+    };
+    // @{<text>@ViewBag.ScriptHead</text>}权限验证配置
+    @{<text>@ViewBag.ScriptHead</text>}.config({
+        agentId: _config.agentId,
+        corpId: _config.corpId,
+        timeStamp: _config.timeStamp,
+        nonceStr: _config.nonceStr,
+        signature: _config.signature,
+        jsApiList:
+         [
+             'runtime.info',
+             'biz.contact.choose',
+             'device.notification.confirm',
+             'device.notification.alert',
+             'device.notification.prompt',
+             'biz.ding.post',
+             'runtime.permission.requestAuthCode',
+             'device.geolocation.get',
+             'biz.ding.post',
+             'biz.contact.complexChoose'
+         ]
+    });
+
+    @{<text>@ViewBag.ScriptHead</text>}.ready(function () {
+        @{<text>@ViewBag.ScriptHead</text>}.device.geolocation.get({
+            targetAccuracy : 100,
+            coordinate : 1,
+            withReGeocode : true,
+            onSuccess : function(result) {
+                $("#site").html(result["address"]);
+            },
+        onFail : function(err) {
+            alert("定位错误代码：" + err.errorCode + "\n" + err.errorMessage);
+        }
+    });
+    });
+    //错误回调函数
+    @{<text>@ViewBag.ScriptHead</text>}.error(function (err) {
+        alert("全局错误代码：" + err.errorCode + "\n" + err.errorMessage);
+    });
+
+
+</script>

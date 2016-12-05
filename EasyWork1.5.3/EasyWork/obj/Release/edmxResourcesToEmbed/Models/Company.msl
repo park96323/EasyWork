@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CompanyDBModelStoreContainer" CdmEntityContainer="CompanyDBEntities">
+    <EntitySetMapping Name="Announcement">
+      <EntityTypeMapping TypeName="CompanyDBModel.Announcement">
+        <MappingFragment StoreEntitySet="Announcement">
+          <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="A_Time" ColumnName="A_Time" />
+          <ScalarProperty Name="A_Image" ColumnName="A_Image" />
+          <ScalarProperty Name="A_Title" ColumnName="A_Title" />
+          <ScalarProperty Name="A_Content" ColumnName="A_Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Department">
+      <EntityTypeMapping TypeName="CompanyDBModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="D_ID" ColumnName="D_ID" />
+          <ScalarProperty Name="D_Name" ColumnName="D_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IsRead">
+      <EntityTypeMapping TypeName="CompanyDBModel.IsRead">
+        <MappingFragment StoreEntitySet="IsRead">
+          <ScalarProperty Name="I_ID" ColumnName="I_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MeetingRoom">
+      <EntityTypeMapping TypeName="CompanyDBModel.MeetingRoom">
+        <MappingFragment StoreEntitySet="MeetingRoom">
+          <ScalarProperty Name="M_ID" ColumnName="M_ID" />
+          <ScalarProperty Name="M_Site" ColumnName="M_Site" />
+          <ScalarProperty Name="M_Floor" ColumnName="M_Floor" />
+          <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+          <ScalarProperty Name="M_PeopleNum" ColumnName="M_PeopleNum" />
+          <ScalarProperty Name="M_IsWIFI" ColumnName="M_IsWIFI" />
+          <ScalarProperty Name="M_Projection" ColumnName="M_Projection" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Registration">
+      <EntityTypeMapping TypeName="CompanyDBModel.Registration">
+        <MappingFragment StoreEntitySet="Registration">
+          <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="R_Site" ColumnName="R_Site" />
+          <ScalarProperty Name="R_Time" ColumnName="R_Time" />
+          <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reimburse">
+      <EntityTypeMapping TypeName="CompanyDBModel.Reimburse">
+        <MappingFragment StoreEntitySet="Reimburse">
+          <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="R_Money" ColumnName="R_Money" />
+          <ScalarProperty Name="R_Type" ColumnName="R_Type" />
+          <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subscribe">
+      <EntityTypeMapping TypeName="CompanyDBModel.Subscribe">
+        <MappingFragment StoreEntitySet="Subscribe">
+          <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+          <ScalarProperty Name="M_ID" ColumnName="M_ID" />
+          <ScalarProperty Name="M_Date" ColumnName="M_Date" />
+          <ScalarProperty Name="M_StartTime" ColumnName="M_StartTime" />
+          <ScalarProperty Name="M_EndTime" ColumnName="M_EndTime" />
+          <ScalarProperty Name="M_Title" ColumnName="M_Title" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Travelinfo">
+      <EntityTypeMapping TypeName="CompanyDBModel.Travelinfo">
+        <MappingFragment StoreEntitySet="Travelinfo">
+          <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="T_Site" ColumnName="T_Site" />
+          <ScalarProperty Name="T_StartTime" ColumnName="T_StartTime" />
+          <ScalarProperty Name="T_EndTime" ColumnName="T_EndTime" />
+          <ScalarProperty Name="T_Days" ColumnName="T_Days" />
+          <ScalarProperty Name="T_Remark" ColumnName="T_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Userinfo">
+      <EntityTypeMapping TypeName="CompanyDBModel.Userinfo">
+        <MappingFragment StoreEntitySet="Userinfo">
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="D_ID" ColumnName="D_ID" />
+          <ScalarProperty Name="IsManage" ColumnName="IsManage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vacateinfo">
+      <EntityTypeMapping TypeName="CompanyDBModel.Vacateinfo">
+        <MappingFragment StoreEntitySet="Vacateinfo">
+          <ScalarProperty Name="V_ID" ColumnName="V_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="V_Type" ColumnName="V_Type" />
+          <ScalarProperty Name="V_StartTime" ColumnName="V_StartTime" />
+          <ScalarProperty Name="V_EndTime" ColumnName="V_EndTime" />
+          <ScalarProperty Name="V_Days" ColumnName="V_Days" />
+          <ScalarProperty Name="V_Remark" ColumnName="V_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="proc_AlreadyReimburse" FunctionName="CompanyDBModel.Store.proc_AlreadyReimburse">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_AlreadyReimburse_Result">
+          <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="R_Money" ColumnName="R_Money" />
+          <ScalarProperty Name="R_Type" ColumnName="R_Type" />
+          <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_AlreadyTravel" FunctionName="CompanyDBModel.Store.proc_AlreadyTravel">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_AlreadyTravel_Result">
+          <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="T_Site" ColumnName="T_Site" />
+          <ScalarProperty Name="T_StartTime" ColumnName="T_StartTime" />
+          <ScalarProperty Name="T_EndTime" ColumnName="T_EndTime" />
+          <ScalarProperty Name="T_Days" ColumnName="T_Days" />
+          <ScalarProperty Name="T_Remark" ColumnName="T_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_AlreadyVacate" FunctionName="CompanyDBModel.Store.proc_AlreadyVacate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_AlreadyVacate_Result">
+          <ScalarProperty Name="V_ID" ColumnName="V_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="V_Type" ColumnName="V_Type" />
+          <ScalarProperty Name="V_StartTime" ColumnName="V_StartTime" />
+          <ScalarProperty Name="V_EndTime" ColumnName="V_EndTime" />
+          <ScalarProperty Name="V_Days" ColumnName="V_Days" />
+          <ScalarProperty Name="V_Remark" ColumnName="V_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_insertRoom" FunctionName="CompanyDBModel.Store.proc_insertRoom" />
+    <FunctionImportMapping FunctionImportName="proc_IsPassReimburse" FunctionName="CompanyDBModel.Store.proc_IsPassReimburse" />
+    <FunctionImportMapping FunctionImportName="proc_IsPassTravel" FunctionName="CompanyDBModel.Store.proc_IsPassTravel" />
+    <FunctionImportMapping FunctionImportName="proc_IsPassVacate" FunctionName="CompanyDBModel.Store.proc_IsPassVacate" />
+    <FunctionImportMapping FunctionImportName="proc_IsReimburse" FunctionName="CompanyDBModel.Store.proc_IsReimburse">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_IsReimburse_Result">
+          <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="R_Money" ColumnName="R_Money" />
+          <ScalarProperty Name="R_Type" ColumnName="R_Type" />
+          <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_IsTravel" FunctionName="CompanyDBModel.Store.proc_IsTravel">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_IsTravel_Result">
+          <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="T_Site" ColumnName="T_Site" />
+          <ScalarProperty Name="T_StartTime" ColumnName="T_StartTime" />
+          <ScalarProperty Name="T_EndTime" ColumnName="T_EndTime" />
+          <ScalarProperty Name="T_Days" ColumnName="T_Days" />
+          <ScalarProperty Name="T_Remark" ColumnName="T_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_IsVacate" FunctionName="CompanyDBModel.Store.proc_IsVacate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_IsVacate_Result">
+          <ScalarProperty Name="V_ID" ColumnName="V_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="V_Type" ColumnName="V_Type" />
+          <ScalarProperty Name="V_StartTime" ColumnName="V_StartTime" />
+          <ScalarProperty Name="V_EndTime" ColumnName="V_EndTime" />
+          <ScalarProperty Name="V_Days" ColumnName="V_Days" />
+          <ScalarProperty Name="V_Remark" ColumnName="V_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_MyReimburse" FunctionName="CompanyDBModel.Store.proc_MyReimburse">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_MyReimburse_Result">
+          <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="R_Money" ColumnName="R_Money" />
+          <ScalarProperty Name="R_Type" ColumnName="R_Type" />
+          <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_MyTravel" FunctionName="CompanyDBModel.Store.proc_MyTravel">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_MyTravel_Result">
+          <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="T_Site" ColumnName="T_Site" />
+          <ScalarProperty Name="T_StartTime" ColumnName="T_StartTime" />
+          <ScalarProperty Name="T_EndTime" ColumnName="T_EndTime" />
+          <ScalarProperty Name="T_Days" ColumnName="T_Days" />
+          <ScalarProperty Name="T_Remark" ColumnName="T_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_MyVacate" FunctionName="CompanyDBModel.Store.proc_MyVacate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_MyVacate_Result">
+          <ScalarProperty Name="V_ID" ColumnName="V_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="V_Type" ColumnName="V_Type" />
+          <ScalarProperty Name="V_StartTime" ColumnName="V_StartTime" />
+          <ScalarProperty Name="V_EndTime" ColumnName="V_EndTime" />
+          <ScalarProperty Name="V_Days" ColumnName="V_Days" />
+          <ScalarProperty Name="V_Remark" ColumnName="V_Remark" />
+          <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+          <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_Sel" FunctionName="CompanyDBModel.Store.proc_Sel">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_Sel_Result">
+          <ScalarProperty Name="M_ID" ColumnName="M_ID" />
+          <ScalarProperty Name="M_Site" ColumnName="M_Site" />
+          <ScalarProperty Name="M_Floor" ColumnName="M_Floor" />
+          <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+          <ScalarProperty Name="M_PeopleNum" ColumnName="M_PeopleNum" />
+          <ScalarProperty Name="M_IsWIFI" ColumnName="M_IsWIFI" />
+          <ScalarProperty Name="M_Projection" ColumnName="M_Projection" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_SelNoread" FunctionName="CompanyDBModel.Store.proc_SelNoread">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_SelNoread_Result">
+          <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="A_Time" ColumnName="A_Time" />
+          <ScalarProperty Name="A_Image" ColumnName="A_Image" />
+          <ScalarProperty Name="A_Title" ColumnName="A_Title" />
+          <ScalarProperty Name="A_Content" ColumnName="A_Content" />
+          <ScalarProperty Name="U_ID1" ColumnName="U_ID1" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="D_ID" ColumnName="D_ID" />
+          <ScalarProperty Name="IsManage" ColumnName="IsManage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="proc_Selread" FunctionName="CompanyDBModel.Store.proc_Selread">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompanyDBModel.proc_Selread_Result">
+          <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+          <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+          <ScalarProperty Name="A_Time" ColumnName="A_Time" />
+          <ScalarProperty Name="A_Image" ColumnName="A_Image" />
+          <ScalarProperty Name="A_Title" ColumnName="A_Title" />
+          <ScalarProperty Name="A_Content" ColumnName="A_Content" />
+          <ScalarProperty Name="I_ID" ColumnName="I_ID" />
+          <ScalarProperty Name="U_ID1" ColumnName="U_ID1" />
+          <ScalarProperty Name="A_ID1" ColumnName="A_ID1" />
+          <ScalarProperty Name="U_ID2" ColumnName="U_ID2" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="D_ID" ColumnName="D_ID" />
+          <ScalarProperty Name="IsManage" ColumnName="IsManage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

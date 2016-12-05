@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "添加新的会议室";
+}
+
+<!--内嵌样式-->
+<style type="text/css">
+    #btn-sumbit {
+        position: fixed;
+        right: 5px;
+        bottom: 5px;
+    }
+
+    @@media only screen and (max-width:570px) {
+        .top-menu {
+            display: none;
+        }
+
+        #btn-sumbit {
+            width: 100%;
+            right: 0;
+            bottom: 0;
+        }
+    }
+</style>
+
+<!--引入头部导航栏样式-->
+<link href="~/Content/css/top_menu.css" rel="stylesheet" />
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+
+<!--导航栏-->
+<div class="navbar-fixed-top">
+    <div class="row top-menu">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <a class="button button-primary button-circle button-border button-small" href="../MeetingRoom/Index" style="margin:5px;"><i class="fa fa-reply"></i></a>
+            返回
+        </div>
+    </div>
+</div>
+
+<!--添加新会议室信息-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12" style="margin:0px auto;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    会议室信息
+                </div>
+                <div class="panel-body">
+                    会议室名称：
+                    <br />
+                    <input id="M_Name" type="text" class="form-control" placeholder="请输入名称..." />
+                    <br />
+                    楼层：
+                    <select id="M_Floor" class="form-control">
+                        <option value="F1">F1</option>
+                        <option value="F2">F2</option>
+                        <option value="F3">F3</option>
+                        <option value="F5">F5</option>
+                        <option value="F6">F6</option>
+                        <option value="F7">F7</option>
+                        <option value="F8">F8</option>
+                        <option value="F9">F9</option>
+                        <option value="F10">F10</option>
+                        <option value="F11">F11</option>
+                        <option value="F12">F12</option>
+                    </select>
+                    <br /><br />
+                    位置：
+                    <br />
+                    <input type="text" id="M_Site" class="form-control" placeholder="请输入所在位置信息..." />
+                    <br />
+                    可容纳人数：
+                    <br />
+                    <input id="M_PeopleNum" type="text" class="form-control" placeholder="请输入最多可容纳人数..." />
+                    <br />
+                    硬件支持：
+                    <input id="M_IsWIFI" type="checkbox" value="wifi" />无线WIFI
+                    <input id="M_Projection" type="checkbox" value="投影仪" />投影仪
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--提交按钮-->
+<div class="button button-primary" id="btn-sumbit">提交</div>
+
+<!--引入外部js文件-->
+<script src="~/Scripts/top_menu-auto_hide.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script>
+    
+    $(function () {
+        var RoomNameInput = $("#M_Name");
+        var RoomSiteInput = $("#M_Site");
+        var RoomPeopleNumberInput = $("#M_PeopleNum");
+        var RoomErrLable = $("#meetingRoom-err");
+        RoomNameInput.blur(function () {
+            if (RoomNameInput.val() == "") {
+                RoomErrLable.html("请填写会议室名称");
+            }
+            else {
+                RoomErrLable.html("");
+            }
+        })
+        RoomSiteInput.blur(function () {
+            if (RoomSiteInput.val() == "") {
+                RoomErrLable.html("请填写会议室位置");
+            }
+            else {
+                RoomErrLable.html("");
+            }
+        })
+        RoomPeopleNumberInput.blur(function () {
+            if (RoomPeopleNumberInput.val() == "") {
+                RoomErrLable.html("请填写会议室可容纳人数");
+            }
+            else {
+                RoomErrLable.html("");
+            }
+        })
+
+
+
+        $("#btn-sumbit").click(function () {
+            $.post('../MeetingRoom/AddRoom', { M_Site: $("#M_Site").val(), M_Floor: $("#M_Floor").val(), M_Name: $("#M_Name").val(), M_PeopleNum: $("#M_PeopleNum").val(), M_IsWIFI: $("#M_IsWIFI").is(':checked'), M_Projection: $("#M_Projection").is(':checked') }, function (data) {
+                if (data == "ok") {
+                    swal({ title: "添加成功！", type: "success", timer: 1500, showConfirmButton: false });
+                    setTimeout(" location.href = '../MeetingRoom/Index'", 1500);
+                }
+                else {
+                    swal("添加失败！", "请重新添加", "error");
+                }
+            })
+        })
+    })
+   
+
+</script>

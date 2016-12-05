@@ -1,0 +1,1343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CompanyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Announcement">
+          <Key>
+            <PropertyRef Name="A_ID" />
+          </Key>
+          <Property Name="A_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="U_ID" Type="varchar" MaxLength="50" />
+          <Property Name="A_Time" Type="datetime" />
+          <Property Name="A_Image" Type="varchar" MaxLength="100" />
+          <Property Name="A_Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="A_Content" Type="varchar" MaxLength="5000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="D_ID" />
+          </Key>
+          <Property Name="D_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="D_Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IsRead">
+          <Key>
+            <PropertyRef Name="I_ID" />
+          </Key>
+          <Property Name="I_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="U_ID" Type="varchar" MaxLength="50" />
+          <Property Name="A_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="MeetingRoom">
+          <Key>
+            <PropertyRef Name="M_ID" />
+          </Key>
+          <Property Name="M_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="M_Site" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="M_Floor" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="M_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="M_PeopleNum" Type="int" Nullable="false" />
+          <Property Name="M_IsWIFI" Type="bit" />
+          <Property Name="M_Projection" Type="bit" />
+        </EntityType>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="R_ID" />
+          </Key>
+          <Property Name="R_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="U_ID" Type="varchar" MaxLength="50" />
+          <Property Name="R_Site" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="R_Time" Type="datetime" Nullable="false" />
+          <Property Name="R_Remark" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Reimburse">
+          <Key>
+            <PropertyRef Name="R_ID" />
+          </Key>
+          <Property Name="R_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="U_ID" Type="varchar" MaxLength="50" />
+          <Property Name="R_Money" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="R_Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="R_Remark" Type="varchar" MaxLength="200" />
+          <Property Name="A_U_ID" Type="varchar" MaxLength="50" />
+          <Property Name="IsAdmission" Type="char" MaxLength="1" />
+          <Property Name="IsApprove" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscribe">
+          <Key>
+            <PropertyRef Name="S_ID" />
+          </Key>
+          <Property Name="S_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="M_ID" Type="int" />
+          <Property Name="M_Date" Type="datetime" Nullable="false" />
+          <Property Name="M_StartTime" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="M_EndTime" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="M_Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="A_U_ID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Travelinfo">
+          <Key>
+            <PropertyRef Name="T_ID" />
+          </Key>
+          <Property Name="T_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="U_ID" Type="varchar" MaxLength="50" />
+          <Property Name="T_Site" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="T_StartTime" Type="datetime" Nullable="false" />
+          <Property Name="T_EndTime" Type="datetime" Nullable="false" />
+          <Property Name="T_Days" Type="int" Nullable="false" />
+          <Property Name="T_Remark" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="A_U_ID" Type="varchar" MaxLength="50" />
+          <Property Name="IsAdmission" Type="char" MaxLength="1" />
+          <Property Name="IsApprove" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Userinfo">
+          <Key>
+            <PropertyRef Name="U_ID" />
+          </Key>
+          <Property Name="U_ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" />
+          <Property Name="Pwd" Type="varchar" MaxLength="64" />
+          <Property Name="Sex" Type="char" MaxLength="2" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Tel" Type="varchar" MaxLength="12" />
+          <Property Name="Images" Type="varchar" MaxLength="200" />
+          <Property Name="D_ID" Type="int" />
+          <Property Name="IsManage" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vacateinfo">
+          <Key>
+            <PropertyRef Name="V_ID" />
+          </Key>
+          <Property Name="V_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="U_ID" Type="varchar" MaxLength="50" />
+          <Property Name="V_Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="V_StartTime" Type="datetime" Nullable="false" />
+          <Property Name="V_EndTime" Type="datetime" Nullable="false" />
+          <Property Name="V_Days" Type="int" Nullable="false" />
+          <Property Name="V_Remark" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="A_U_ID" Type="varchar" MaxLength="50" />
+          <Property Name="IsAdmission" Type="char" MaxLength="1" />
+          <Property Name="IsApprove" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Announceme__U_ID__173876EA">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Announcement">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsRead__A_ID__1BFD2C07">
+          <End Role="Announcement" Type="Self.Announcement" Multiplicity="0..1" />
+          <End Role="IsRead" Type="Self.IsRead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Announcement">
+              <PropertyRef Name="A_ID" />
+            </Principal>
+            <Dependent Role="IsRead">
+              <PropertyRef Name="A_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsRead__U_ID__1B0907CE">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="IsRead" Type="Self.IsRead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="IsRead">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registrati__U_ID__1ED998B2">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Registration">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reimburse__A_U_I__2F10007B">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Reimburse" Type="Self.Reimburse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Reimburse">
+              <PropertyRef Name="A_U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reimburse__U_ID__2E1BDC42">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Reimburse" Type="Self.Reimburse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Reimburse">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscribe__A_U_I__37A5467C">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Subscribe" Type="Self.Subscribe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Subscribe">
+              <PropertyRef Name="A_U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscribe__M_ID__36B12243">
+          <End Role="MeetingRoom" Type="Self.MeetingRoom" Multiplicity="0..1" />
+          <End Role="Subscribe" Type="Self.Subscribe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeetingRoom">
+              <PropertyRef Name="M_ID" />
+            </Principal>
+            <Dependent Role="Subscribe">
+              <PropertyRef Name="M_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Travelinf__A_U_I__29572725">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Travelinfo" Type="Self.Travelinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Travelinfo">
+              <PropertyRef Name="A_U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Travelinfo__U_ID__286302EC">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Travelinfo" Type="Self.Travelinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Travelinfo">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Userinfo__D_ID__1367E606">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="D_ID" />
+            </Principal>
+            <Dependent Role="Userinfo">
+              <PropertyRef Name="D_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vacateinf__A_U_I__239E4DCF">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Vacateinfo" Type="Self.Vacateinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Vacateinfo">
+              <PropertyRef Name="A_U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vacateinfo__U_ID__22AA2996">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Vacateinfo" Type="Self.Vacateinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Vacateinfo">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="proc_AlreadyReimburse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="U_ID" Type="varchar" Mode="In" />
+          <Parameter Name="IsApprove" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="proc_AlreadyTravel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="U_ID" Type="varchar" Mode="In" />
+          <Parameter Name="IsApprove" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="proc_AlreadyVacate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="U_ID" Type="varchar" Mode="In" />
+          <Parameter Name="IsApprove" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="proc_insertRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="M_ID" Type="int" Mode="In" />
+          <Parameter Name="M_Date" Type="datetime" Mode="In" />
+          <Parameter Name="S_StartTime" Type="varchar" Mode="In" />
+          <Parameter Name="S_EndTime" Type="varchar" Mode="In" />
+          <Parameter Name="S_Title" Type="varchar" Mode="In" />
+          <Parameter Name="S_U_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_IsPassReimburse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="R_ID" Type="varchar" Mode="In" />
+          <Parameter Name="IsAdmission" Type="char" Mode="In" />
+        </Function>
+        <Function Name="proc_IsPassTravel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="T_ID" Type="varchar" Mode="In" />
+          <Parameter Name="IsAdmission" Type="char" Mode="In" />
+        </Function>
+        <Function Name="proc_IsPassVacate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="V_ID" Type="int" Mode="In" />
+          <Parameter Name="IsAdmission" Type="char" Mode="In" />
+        </Function>
+        <Function Name="proc_IsReimburse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="U_ID" Type="varchar" Mode="In" />
+          <Parameter Name="IsApprove" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="proc_IsTravel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="U_ID" Type="varchar" Mode="In" />
+          <Parameter Name="IsApprove" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="proc_IsVacate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="U_ID" Type="varchar" Mode="In" />
+          <Parameter Name="IsApprove" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="proc_MyReimburse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="U_ID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="proc_MyTravel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="U_ID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="proc_MyVacate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="U_ID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="proc_Sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Iswifi" Type="bit" Mode="In" />
+          <Parameter Name="M_Projection" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="proc_SelNoread" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="proc_Selread" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="CompanyDBModelStoreContainer">
+          <EntitySet Name="Announcement" EntityType="Self.Announcement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IsRead" EntityType="Self.IsRead" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeetingRoom" EntityType="Self.MeetingRoom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registration" EntityType="Self.Registration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reimburse" EntityType="Self.Reimburse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscribe" EntityType="Self.Subscribe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Travelinfo" EntityType="Self.Travelinfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Userinfo" EntityType="Self.Userinfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vacateinfo" EntityType="Self.Vacateinfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Announceme__U_ID__173876EA" Association="Self.FK__Announceme__U_ID__173876EA">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Announcement" EntitySet="Announcement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsRead__A_ID__1BFD2C07" Association="Self.FK__IsRead__A_ID__1BFD2C07">
+            <End Role="Announcement" EntitySet="Announcement" />
+            <End Role="IsRead" EntitySet="IsRead" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsRead__U_ID__1B0907CE" Association="Self.FK__IsRead__U_ID__1B0907CE">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="IsRead" EntitySet="IsRead" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registrati__U_ID__1ED998B2" Association="Self.FK__Registrati__U_ID__1ED998B2">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Registration" EntitySet="Registration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reimburse__A_U_I__2F10007B" Association="Self.FK__Reimburse__A_U_I__2F10007B">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Reimburse" EntitySet="Reimburse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reimburse__U_ID__2E1BDC42" Association="Self.FK__Reimburse__U_ID__2E1BDC42">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Reimburse" EntitySet="Reimburse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscribe__A_U_I__37A5467C" Association="Self.FK__Subscribe__A_U_I__37A5467C">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Subscribe" EntitySet="Subscribe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscribe__M_ID__36B12243" Association="Self.FK__Subscribe__M_ID__36B12243">
+            <End Role="MeetingRoom" EntitySet="MeetingRoom" />
+            <End Role="Subscribe" EntitySet="Subscribe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Travelinf__A_U_I__29572725" Association="Self.FK__Travelinf__A_U_I__29572725">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Travelinfo" EntitySet="Travelinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Travelinfo__U_ID__286302EC" Association="Self.FK__Travelinfo__U_ID__286302EC">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Travelinfo" EntitySet="Travelinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Userinfo__D_ID__1367E606" Association="Self.FK__Userinfo__D_ID__1367E606">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Userinfo" EntitySet="Userinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vacateinf__A_U_I__239E4DCF" Association="Self.FK__Vacateinf__A_U_I__239E4DCF">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Vacateinfo" EntitySet="Vacateinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vacateinfo__U_ID__22AA2996" Association="Self.FK__Vacateinfo__U_ID__22AA2996">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Vacateinfo" EntitySet="Vacateinfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CompanyDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="Announcement">
+          <Key>
+            <PropertyRef Name="A_ID" />
+          </Key>
+          <Property Name="A_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="A_Time" Type="DateTime" Precision="3" />
+          <Property Name="A_Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="A_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="A_Content" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Userinfo" Relationship="Self.FK__Announceme__U_ID__173876EA" FromRole="Announcement" ToRole="Userinfo" />
+          <NavigationProperty Name="IsRead" Relationship="Self.FK__IsRead__A_ID__1BFD2C07" FromRole="Announcement" ToRole="IsRead" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="D_ID" />
+          </Key>
+          <Property Name="D_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="D_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Userinfo" Relationship="Self.FK__Userinfo__D_ID__1367E606" FromRole="Department" ToRole="Userinfo" />
+        </EntityType>
+        <EntityType Name="IsRead">
+          <Key>
+            <PropertyRef Name="I_ID" />
+          </Key>
+          <Property Name="I_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="A_ID" Type="Int32" />
+          <NavigationProperty Name="Announcement" Relationship="Self.FK__IsRead__A_ID__1BFD2C07" FromRole="IsRead" ToRole="Announcement" />
+          <NavigationProperty Name="Userinfo" Relationship="Self.FK__IsRead__U_ID__1B0907CE" FromRole="IsRead" ToRole="Userinfo" />
+        </EntityType>
+        <EntityType Name="MeetingRoom">
+          <Key>
+            <PropertyRef Name="M_ID" />
+          </Key>
+          <Property Name="M_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="M_Site" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="M_Floor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="M_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="M_PeopleNum" Type="Int32" Nullable="false" />
+          <Property Name="M_IsWIFI" Type="Boolean" />
+          <Property Name="M_Projection" Type="Boolean" />
+          <NavigationProperty Name="Subscribe" Relationship="Self.FK__Subscribe__M_ID__36B12243" FromRole="MeetingRoom" ToRole="Subscribe" />
+        </EntityType>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="R_ID" />
+          </Key>
+          <Property Name="R_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="R_Site" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="R_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="R_Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Userinfo" Relationship="Self.FK__Registrati__U_ID__1ED998B2" FromRole="Registration" ToRole="Userinfo" />
+        </EntityType>
+        <EntityType Name="Reimburse">
+          <Key>
+            <PropertyRef Name="R_ID" />
+          </Key>
+          <Property Name="R_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="R_Money" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="R_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="R_Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="A_U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAdmission" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IsApprove" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Userinfo" Relationship="Self.FK__Reimburse__A_U_I__2F10007B" FromRole="Reimburse" ToRole="Userinfo" />
+          <NavigationProperty Name="Userinfo1" Relationship="Self.FK__Reimburse__U_ID__2E1BDC42" FromRole="Reimburse" ToRole="Userinfo" />
+        </EntityType>
+        <EntityType Name="Subscribe">
+          <Key>
+            <PropertyRef Name="S_ID" />
+          </Key>
+          <Property Name="S_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="M_ID" Type="Int32" />
+          <Property Name="M_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="M_StartTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="M_EndTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="M_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="A_U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MeetingRoom" Relationship="Self.FK__Subscribe__M_ID__36B12243" FromRole="Subscribe" ToRole="MeetingRoom" />
+          <NavigationProperty Name="Userinfo" Relationship="Self.FK__Subscribe__A_U_I__37A5467C" FromRole="Subscribe" ToRole="Userinfo" />
+        </EntityType>
+        <EntityType Name="Travelinfo">
+          <Key>
+            <PropertyRef Name="T_ID" />
+          </Key>
+          <Property Name="T_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="T_Site" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="T_StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="T_EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="T_Days" Type="Int32" Nullable="false" />
+          <Property Name="T_Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="A_U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAdmission" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IsApprove" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Userinfo" Relationship="Self.FK__Travelinf__A_U_I__29572725" FromRole="Travelinfo" ToRole="Userinfo" />
+          <NavigationProperty Name="Userinfo1" Relationship="Self.FK__Travelinfo__U_ID__286302EC" FromRole="Travelinfo" ToRole="Userinfo" />
+        </EntityType>
+        <EntityType Name="Userinfo">
+          <Key>
+            <PropertyRef Name="U_ID" />
+          </Key>
+          <Property Name="U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Pwd" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Tel" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Images" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="D_ID" Type="Int32" />
+          <Property Name="IsManage" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Announcement" Relationship="Self.FK__Announceme__U_ID__173876EA" FromRole="Userinfo" ToRole="Announcement" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__Userinfo__D_ID__1367E606" FromRole="Userinfo" ToRole="Department" />
+          <NavigationProperty Name="IsRead" Relationship="Self.FK__IsRead__U_ID__1B0907CE" FromRole="Userinfo" ToRole="IsRead" />
+          <NavigationProperty Name="Registration" Relationship="Self.FK__Registrati__U_ID__1ED998B2" FromRole="Userinfo" ToRole="Registration" />
+          <NavigationProperty Name="Reimburse" Relationship="Self.FK__Reimburse__A_U_I__2F10007B" FromRole="Userinfo" ToRole="Reimburse" />
+          <NavigationProperty Name="Reimburse1" Relationship="Self.FK__Reimburse__U_ID__2E1BDC42" FromRole="Userinfo" ToRole="Reimburse" />
+          <NavigationProperty Name="Subscribe" Relationship="Self.FK__Subscribe__A_U_I__37A5467C" FromRole="Userinfo" ToRole="Subscribe" />
+          <NavigationProperty Name="Travelinfo" Relationship="Self.FK__Travelinf__A_U_I__29572725" FromRole="Userinfo" ToRole="Travelinfo" />
+          <NavigationProperty Name="Travelinfo1" Relationship="Self.FK__Travelinfo__U_ID__286302EC" FromRole="Userinfo" ToRole="Travelinfo" />
+          <NavigationProperty Name="Vacateinfo" Relationship="Self.FK__Vacateinf__A_U_I__239E4DCF" FromRole="Userinfo" ToRole="Vacateinfo" />
+          <NavigationProperty Name="Vacateinfo1" Relationship="Self.FK__Vacateinfo__U_ID__22AA2996" FromRole="Userinfo" ToRole="Vacateinfo" />
+        </EntityType>
+        <EntityType Name="Vacateinfo">
+          <Key>
+            <PropertyRef Name="V_ID" />
+          </Key>
+          <Property Name="V_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="V_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="V_StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="V_EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="V_Days" Type="Int32" Nullable="false" />
+          <Property Name="V_Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="A_U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAdmission" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IsApprove" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Userinfo" Relationship="Self.FK__Vacateinf__A_U_I__239E4DCF" FromRole="Vacateinfo" ToRole="Userinfo" />
+          <NavigationProperty Name="Userinfo1" Relationship="Self.FK__Vacateinfo__U_ID__22AA2996" FromRole="Vacateinfo" ToRole="Userinfo" />
+        </EntityType>
+        <Association Name="FK__Announceme__U_ID__173876EA">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Announcement">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsRead__A_ID__1BFD2C07">
+          <End Role="Announcement" Type="Self.Announcement" Multiplicity="0..1" />
+          <End Role="IsRead" Type="Self.IsRead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Announcement">
+              <PropertyRef Name="A_ID" />
+            </Principal>
+            <Dependent Role="IsRead">
+              <PropertyRef Name="A_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Userinfo__D_ID__1367E606">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="D_ID" />
+            </Principal>
+            <Dependent Role="Userinfo">
+              <PropertyRef Name="D_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IsRead__U_ID__1B0907CE">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="IsRead" Type="Self.IsRead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="IsRead">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscribe__M_ID__36B12243">
+          <End Role="MeetingRoom" Type="Self.MeetingRoom" Multiplicity="0..1" />
+          <End Role="Subscribe" Type="Self.Subscribe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeetingRoom">
+              <PropertyRef Name="M_ID" />
+            </Principal>
+            <Dependent Role="Subscribe">
+              <PropertyRef Name="M_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registrati__U_ID__1ED998B2">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Registration">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reimburse__A_U_I__2F10007B">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Reimburse" Type="Self.Reimburse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Reimburse">
+              <PropertyRef Name="A_U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reimburse__U_ID__2E1BDC42">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Reimburse" Type="Self.Reimburse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Reimburse">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscribe__A_U_I__37A5467C">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Subscribe" Type="Self.Subscribe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Subscribe">
+              <PropertyRef Name="A_U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Travelinf__A_U_I__29572725">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Travelinfo" Type="Self.Travelinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Travelinfo">
+              <PropertyRef Name="A_U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Travelinfo__U_ID__286302EC">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Travelinfo" Type="Self.Travelinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Travelinfo">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vacateinf__A_U_I__239E4DCF">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Vacateinfo" Type="Self.Vacateinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Vacateinfo">
+              <PropertyRef Name="A_U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vacateinfo__U_ID__22AA2996">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Vacateinfo" Type="Self.Vacateinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="Vacateinfo">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CompanyDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Announcement" EntityType="Self.Announcement" />
+          <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="IsRead" EntityType="Self.IsRead" />
+          <EntitySet Name="MeetingRoom" EntityType="Self.MeetingRoom" />
+          <EntitySet Name="Registration" EntityType="Self.Registration" />
+          <EntitySet Name="Reimburse" EntityType="Self.Reimburse" />
+          <EntitySet Name="Subscribe" EntityType="Self.Subscribe" />
+          <EntitySet Name="Travelinfo" EntityType="Self.Travelinfo" />
+          <EntitySet Name="Userinfo" EntityType="Self.Userinfo" />
+          <EntitySet Name="Vacateinfo" EntityType="Self.Vacateinfo" />
+          <AssociationSet Name="FK__Announceme__U_ID__173876EA" Association="Self.FK__Announceme__U_ID__173876EA">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Announcement" EntitySet="Announcement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsRead__A_ID__1BFD2C07" Association="Self.FK__IsRead__A_ID__1BFD2C07">
+            <End Role="Announcement" EntitySet="Announcement" />
+            <End Role="IsRead" EntitySet="IsRead" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Userinfo__D_ID__1367E606" Association="Self.FK__Userinfo__D_ID__1367E606">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Userinfo" EntitySet="Userinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IsRead__U_ID__1B0907CE" Association="Self.FK__IsRead__U_ID__1B0907CE">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="IsRead" EntitySet="IsRead" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscribe__M_ID__36B12243" Association="Self.FK__Subscribe__M_ID__36B12243">
+            <End Role="MeetingRoom" EntitySet="MeetingRoom" />
+            <End Role="Subscribe" EntitySet="Subscribe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registrati__U_ID__1ED998B2" Association="Self.FK__Registrati__U_ID__1ED998B2">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Registration" EntitySet="Registration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reimburse__A_U_I__2F10007B" Association="Self.FK__Reimburse__A_U_I__2F10007B">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Reimburse" EntitySet="Reimburse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reimburse__U_ID__2E1BDC42" Association="Self.FK__Reimburse__U_ID__2E1BDC42">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Reimburse" EntitySet="Reimburse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscribe__A_U_I__37A5467C" Association="Self.FK__Subscribe__A_U_I__37A5467C">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Subscribe" EntitySet="Subscribe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Travelinf__A_U_I__29572725" Association="Self.FK__Travelinf__A_U_I__29572725">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Travelinfo" EntitySet="Travelinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Travelinfo__U_ID__286302EC" Association="Self.FK__Travelinfo__U_ID__286302EC">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Travelinfo" EntitySet="Travelinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vacateinf__A_U_I__239E4DCF" Association="Self.FK__Vacateinf__A_U_I__239E4DCF">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Vacateinfo" EntitySet="Vacateinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vacateinfo__U_ID__22AA2996" Association="Self.FK__Vacateinfo__U_ID__22AA2996">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Vacateinfo" EntitySet="Vacateinfo" />
+          </AssociationSet>
+          <FunctionImport Name="proc_AlreadyReimburse" ReturnType="Collection(CompanyDBModel.proc_AlreadyReimburse_Result)">
+            <Parameter Name="U_ID" Mode="In" Type="String" />
+            <Parameter Name="IsApprove" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="proc_AlreadyTravel" ReturnType="Collection(CompanyDBModel.proc_AlreadyTravel_Result)">
+            <Parameter Name="U_ID" Mode="In" Type="String" />
+            <Parameter Name="IsApprove" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="proc_AlreadyVacate" ReturnType="Collection(CompanyDBModel.proc_AlreadyVacate_Result)">
+            <Parameter Name="U_ID" Mode="In" Type="String" />
+            <Parameter Name="IsApprove" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="proc_insertRoom">
+            <Parameter Name="M_ID" Mode="In" Type="Int32" />
+            <Parameter Name="M_Date" Mode="In" Type="DateTime" />
+            <Parameter Name="S_StartTime" Mode="In" Type="String" />
+            <Parameter Name="S_EndTime" Mode="In" Type="String" />
+            <Parameter Name="S_Title" Mode="In" Type="String" />
+            <Parameter Name="S_U_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_IsPassReimburse">
+            <Parameter Name="R_ID" Mode="In" Type="String" />
+            <Parameter Name="IsAdmission" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_IsPassTravel">
+            <Parameter Name="T_ID" Mode="In" Type="String" />
+            <Parameter Name="IsAdmission" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_IsPassVacate">
+            <Parameter Name="V_ID" Mode="In" Type="Int32" />
+            <Parameter Name="IsAdmission" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_IsReimburse" ReturnType="Collection(CompanyDBModel.proc_IsReimburse_Result)">
+            <Parameter Name="U_ID" Mode="In" Type="String" />
+            <Parameter Name="IsApprove" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="proc_IsTravel" ReturnType="Collection(CompanyDBModel.proc_IsTravel_Result)">
+            <Parameter Name="U_ID" Mode="In" Type="String" />
+            <Parameter Name="IsApprove" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="proc_IsVacate" ReturnType="Collection(CompanyDBModel.proc_IsVacate_Result)">
+            <Parameter Name="U_ID" Mode="In" Type="String" />
+            <Parameter Name="IsApprove" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="proc_MyReimburse" ReturnType="Collection(CompanyDBModel.proc_MyReimburse_Result)">
+            <Parameter Name="U_ID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_MyTravel" ReturnType="Collection(CompanyDBModel.proc_MyTravel_Result)">
+            <Parameter Name="U_ID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_MyVacate" ReturnType="Collection(CompanyDBModel.proc_MyVacate_Result)">
+            <Parameter Name="U_ID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Sel" ReturnType="Collection(CompanyDBModel.proc_Sel_Result)">
+            <Parameter Name="Iswifi" Mode="In" Type="Boolean" />
+            <Parameter Name="M_Projection" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="proc_SelNoread" ReturnType="Collection(CompanyDBModel.proc_SelNoread_Result)">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Selread" ReturnType="Collection(CompanyDBModel.proc_Selread_Result)">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="proc_AlreadyReimburse_Result">
+          <Property Type="Int32" Name="R_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="R_Money" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="R_Type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="R_Remark" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="A_U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IsAdmission" Nullable="true" MaxLength="1" />
+          <Property Type="Boolean" Name="IsApprove" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_AlreadyTravel_Result">
+          <Property Type="Int32" Name="T_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="T_Site" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="T_StartTime" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="T_EndTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="T_Days" Nullable="false" />
+          <Property Type="String" Name="T_Remark" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="A_U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IsAdmission" Nullable="true" MaxLength="1" />
+          <Property Type="Boolean" Name="IsApprove" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_AlreadyVacate_Result">
+          <Property Type="Int32" Name="V_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="V_Type" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="V_StartTime" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="V_EndTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="V_Days" Nullable="false" />
+          <Property Type="String" Name="V_Remark" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="A_U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IsAdmission" Nullable="true" MaxLength="1" />
+          <Property Type="Boolean" Name="IsApprove" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_IsReimburse_Result">
+          <Property Type="Int32" Name="R_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="R_Money" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="R_Type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="R_Remark" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="A_U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IsAdmission" Nullable="true" MaxLength="1" />
+          <Property Type="Boolean" Name="IsApprove" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_IsTravel_Result">
+          <Property Type="Int32" Name="T_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="T_Site" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="T_StartTime" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="T_EndTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="T_Days" Nullable="false" />
+          <Property Type="String" Name="T_Remark" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="A_U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IsAdmission" Nullable="true" MaxLength="1" />
+          <Property Type="Boolean" Name="IsApprove" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_IsVacate_Result">
+          <Property Type="Int32" Name="V_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="V_Type" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="V_StartTime" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="V_EndTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="V_Days" Nullable="false" />
+          <Property Type="String" Name="V_Remark" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="A_U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IsAdmission" Nullable="true" MaxLength="1" />
+          <Property Type="Boolean" Name="IsApprove" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_MyReimburse_Result">
+          <Property Type="Int32" Name="R_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="R_Money" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="R_Type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="R_Remark" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="A_U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IsAdmission" Nullable="true" MaxLength="1" />
+          <Property Type="Boolean" Name="IsApprove" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_MyTravel_Result">
+          <Property Type="Int32" Name="T_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="T_Site" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="T_StartTime" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="T_EndTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="T_Days" Nullable="false" />
+          <Property Type="String" Name="T_Remark" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="A_U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IsAdmission" Nullable="true" MaxLength="1" />
+          <Property Type="Boolean" Name="IsApprove" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_MyVacate_Result">
+          <Property Type="Int32" Name="V_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="V_Type" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="V_StartTime" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="V_EndTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="V_Days" Nullable="false" />
+          <Property Type="String" Name="V_Remark" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="A_U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IsAdmission" Nullable="true" MaxLength="1" />
+          <Property Type="Boolean" Name="IsApprove" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_Sel_Result">
+          <Property Type="Int32" Name="M_ID" Nullable="false" />
+          <Property Type="String" Name="M_Site" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="M_Floor" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="M_Name" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="M_PeopleNum" Nullable="false" />
+          <Property Type="Boolean" Name="M_IsWIFI" Nullable="true" />
+          <Property Type="Boolean" Name="M_Projection" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="proc_SelNoread_Result">
+          <Property Type="Int32" Name="A_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="A_Time" Nullable="true" Precision="23" />
+          <Property Type="String" Name="A_Image" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="A_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="A_Content" Nullable="false" MaxLength="5000" />
+          <Property Type="String" Name="U_ID1" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Pwd" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="2" />
+          <Property Type="Int32" Name="Age" Nullable="true" />
+          <Property Type="String" Name="Tel" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="Images" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="D_ID" Nullable="true" />
+          <Property Type="String" Name="IsManage" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="proc_Selread_Result">
+          <Property Type="Int32" Name="A_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="A_Time" Nullable="true" Precision="23" />
+          <Property Type="String" Name="A_Image" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="A_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="A_Content" Nullable="false" MaxLength="5000" />
+          <Property Type="Int32" Name="I_ID" Nullable="false" />
+          <Property Type="String" Name="U_ID1" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="A_ID1" Nullable="true" />
+          <Property Type="String" Name="U_ID2" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Pwd" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="2" />
+          <Property Type="Int32" Name="Age" Nullable="true" />
+          <Property Type="String" Name="Tel" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="Images" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="D_ID" Nullable="true" />
+          <Property Type="String" Name="IsManage" Nullable="false" MaxLength="1" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CompanyDBModelStoreContainer" CdmEntityContainer="CompanyDBEntities">
+          <EntitySetMapping Name="Announcement">
+            <EntityTypeMapping TypeName="CompanyDBModel.Announcement">
+              <MappingFragment StoreEntitySet="Announcement">
+                <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="A_Time" ColumnName="A_Time" />
+                <ScalarProperty Name="A_Image" ColumnName="A_Image" />
+                <ScalarProperty Name="A_Title" ColumnName="A_Title" />
+                <ScalarProperty Name="A_Content" ColumnName="A_Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="CompanyDBModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="D_ID" ColumnName="D_ID" />
+                <ScalarProperty Name="D_Name" ColumnName="D_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IsRead">
+            <EntityTypeMapping TypeName="CompanyDBModel.IsRead">
+              <MappingFragment StoreEntitySet="IsRead">
+                <ScalarProperty Name="I_ID" ColumnName="I_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeetingRoom">
+            <EntityTypeMapping TypeName="CompanyDBModel.MeetingRoom">
+              <MappingFragment StoreEntitySet="MeetingRoom">
+                <ScalarProperty Name="M_ID" ColumnName="M_ID" />
+                <ScalarProperty Name="M_Site" ColumnName="M_Site" />
+                <ScalarProperty Name="M_Floor" ColumnName="M_Floor" />
+                <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+                <ScalarProperty Name="M_PeopleNum" ColumnName="M_PeopleNum" />
+                <ScalarProperty Name="M_IsWIFI" ColumnName="M_IsWIFI" />
+                <ScalarProperty Name="M_Projection" ColumnName="M_Projection" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registration">
+            <EntityTypeMapping TypeName="CompanyDBModel.Registration">
+              <MappingFragment StoreEntitySet="Registration">
+                <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="R_Site" ColumnName="R_Site" />
+                <ScalarProperty Name="R_Time" ColumnName="R_Time" />
+                <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reimburse">
+            <EntityTypeMapping TypeName="CompanyDBModel.Reimburse">
+              <MappingFragment StoreEntitySet="Reimburse">
+                <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="R_Money" ColumnName="R_Money" />
+                <ScalarProperty Name="R_Type" ColumnName="R_Type" />
+                <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscribe">
+            <EntityTypeMapping TypeName="CompanyDBModel.Subscribe">
+              <MappingFragment StoreEntitySet="Subscribe">
+                <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+                <ScalarProperty Name="M_ID" ColumnName="M_ID" />
+                <ScalarProperty Name="M_Date" ColumnName="M_Date" />
+                <ScalarProperty Name="M_StartTime" ColumnName="M_StartTime" />
+                <ScalarProperty Name="M_EndTime" ColumnName="M_EndTime" />
+                <ScalarProperty Name="M_Title" ColumnName="M_Title" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Travelinfo">
+            <EntityTypeMapping TypeName="CompanyDBModel.Travelinfo">
+              <MappingFragment StoreEntitySet="Travelinfo">
+                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="T_Site" ColumnName="T_Site" />
+                <ScalarProperty Name="T_StartTime" ColumnName="T_StartTime" />
+                <ScalarProperty Name="T_EndTime" ColumnName="T_EndTime" />
+                <ScalarProperty Name="T_Days" ColumnName="T_Days" />
+                <ScalarProperty Name="T_Remark" ColumnName="T_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Userinfo">
+            <EntityTypeMapping TypeName="CompanyDBModel.Userinfo">
+              <MappingFragment StoreEntitySet="Userinfo">
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="D_ID" ColumnName="D_ID" />
+                <ScalarProperty Name="IsManage" ColumnName="IsManage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vacateinfo">
+            <EntityTypeMapping TypeName="CompanyDBModel.Vacateinfo">
+              <MappingFragment StoreEntitySet="Vacateinfo">
+                <ScalarProperty Name="V_ID" ColumnName="V_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="V_Type" ColumnName="V_Type" />
+                <ScalarProperty Name="V_StartTime" ColumnName="V_StartTime" />
+                <ScalarProperty Name="V_EndTime" ColumnName="V_EndTime" />
+                <ScalarProperty Name="V_Days" ColumnName="V_Days" />
+                <ScalarProperty Name="V_Remark" ColumnName="V_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="proc_AlreadyReimburse" FunctionName="CompanyDBModel.Store.proc_AlreadyReimburse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_AlreadyReimburse_Result">
+                <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="R_Money" ColumnName="R_Money" />
+                <ScalarProperty Name="R_Type" ColumnName="R_Type" />
+                <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_AlreadyTravel" FunctionName="CompanyDBModel.Store.proc_AlreadyTravel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_AlreadyTravel_Result">
+                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="T_Site" ColumnName="T_Site" />
+                <ScalarProperty Name="T_StartTime" ColumnName="T_StartTime" />
+                <ScalarProperty Name="T_EndTime" ColumnName="T_EndTime" />
+                <ScalarProperty Name="T_Days" ColumnName="T_Days" />
+                <ScalarProperty Name="T_Remark" ColumnName="T_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_AlreadyVacate" FunctionName="CompanyDBModel.Store.proc_AlreadyVacate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_AlreadyVacate_Result">
+                <ScalarProperty Name="V_ID" ColumnName="V_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="V_Type" ColumnName="V_Type" />
+                <ScalarProperty Name="V_StartTime" ColumnName="V_StartTime" />
+                <ScalarProperty Name="V_EndTime" ColumnName="V_EndTime" />
+                <ScalarProperty Name="V_Days" ColumnName="V_Days" />
+                <ScalarProperty Name="V_Remark" ColumnName="V_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_insertRoom" FunctionName="CompanyDBModel.Store.proc_insertRoom" />
+          <FunctionImportMapping FunctionImportName="proc_IsPassReimburse" FunctionName="CompanyDBModel.Store.proc_IsPassReimburse" />
+          <FunctionImportMapping FunctionImportName="proc_IsPassTravel" FunctionName="CompanyDBModel.Store.proc_IsPassTravel" />
+          <FunctionImportMapping FunctionImportName="proc_IsPassVacate" FunctionName="CompanyDBModel.Store.proc_IsPassVacate" />
+          <FunctionImportMapping FunctionImportName="proc_IsReimburse" FunctionName="CompanyDBModel.Store.proc_IsReimburse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_IsReimburse_Result">
+                <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="R_Money" ColumnName="R_Money" />
+                <ScalarProperty Name="R_Type" ColumnName="R_Type" />
+                <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_IsTravel" FunctionName="CompanyDBModel.Store.proc_IsTravel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_IsTravel_Result">
+                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="T_Site" ColumnName="T_Site" />
+                <ScalarProperty Name="T_StartTime" ColumnName="T_StartTime" />
+                <ScalarProperty Name="T_EndTime" ColumnName="T_EndTime" />
+                <ScalarProperty Name="T_Days" ColumnName="T_Days" />
+                <ScalarProperty Name="T_Remark" ColumnName="T_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_IsVacate" FunctionName="CompanyDBModel.Store.proc_IsVacate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_IsVacate_Result">
+                <ScalarProperty Name="V_ID" ColumnName="V_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="V_Type" ColumnName="V_Type" />
+                <ScalarProperty Name="V_StartTime" ColumnName="V_StartTime" />
+                <ScalarProperty Name="V_EndTime" ColumnName="V_EndTime" />
+                <ScalarProperty Name="V_Days" ColumnName="V_Days" />
+                <ScalarProperty Name="V_Remark" ColumnName="V_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_MyReimburse" FunctionName="CompanyDBModel.Store.proc_MyReimburse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_MyReimburse_Result">
+                <ScalarProperty Name="R_ID" ColumnName="R_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="R_Money" ColumnName="R_Money" />
+                <ScalarProperty Name="R_Type" ColumnName="R_Type" />
+                <ScalarProperty Name="R_Remark" ColumnName="R_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_MyTravel" FunctionName="CompanyDBModel.Store.proc_MyTravel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_MyTravel_Result">
+                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="T_Site" ColumnName="T_Site" />
+                <ScalarProperty Name="T_StartTime" ColumnName="T_StartTime" />
+                <ScalarProperty Name="T_EndTime" ColumnName="T_EndTime" />
+                <ScalarProperty Name="T_Days" ColumnName="T_Days" />
+                <ScalarProperty Name="T_Remark" ColumnName="T_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_MyVacate" FunctionName="CompanyDBModel.Store.proc_MyVacate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_MyVacate_Result">
+                <ScalarProperty Name="V_ID" ColumnName="V_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="V_Type" ColumnName="V_Type" />
+                <ScalarProperty Name="V_StartTime" ColumnName="V_StartTime" />
+                <ScalarProperty Name="V_EndTime" ColumnName="V_EndTime" />
+                <ScalarProperty Name="V_Days" ColumnName="V_Days" />
+                <ScalarProperty Name="V_Remark" ColumnName="V_Remark" />
+                <ScalarProperty Name="A_U_ID" ColumnName="A_U_ID" />
+                <ScalarProperty Name="IsAdmission" ColumnName="IsAdmission" />
+                <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Sel" FunctionName="CompanyDBModel.Store.proc_Sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_Sel_Result">
+                <ScalarProperty Name="M_ID" ColumnName="M_ID" />
+                <ScalarProperty Name="M_Site" ColumnName="M_Site" />
+                <ScalarProperty Name="M_Floor" ColumnName="M_Floor" />
+                <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+                <ScalarProperty Name="M_PeopleNum" ColumnName="M_PeopleNum" />
+                <ScalarProperty Name="M_IsWIFI" ColumnName="M_IsWIFI" />
+                <ScalarProperty Name="M_Projection" ColumnName="M_Projection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_SelNoread" FunctionName="CompanyDBModel.Store.proc_SelNoread">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_SelNoread_Result">
+                <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="A_Time" ColumnName="A_Time" />
+                <ScalarProperty Name="A_Image" ColumnName="A_Image" />
+                <ScalarProperty Name="A_Title" ColumnName="A_Title" />
+                <ScalarProperty Name="A_Content" ColumnName="A_Content" />
+                <ScalarProperty Name="U_ID1" ColumnName="U_ID1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="D_ID" ColumnName="D_ID" />
+                <ScalarProperty Name="IsManage" ColumnName="IsManage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_Selread" FunctionName="CompanyDBModel.Store.proc_Selread">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompanyDBModel.proc_Selread_Result">
+                <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="A_Time" ColumnName="A_Time" />
+                <ScalarProperty Name="A_Image" ColumnName="A_Image" />
+                <ScalarProperty Name="A_Title" ColumnName="A_Title" />
+                <ScalarProperty Name="A_Content" ColumnName="A_Content" />
+                <ScalarProperty Name="I_ID" ColumnName="I_ID" />
+                <ScalarProperty Name="U_ID1" ColumnName="U_ID1" />
+                <ScalarProperty Name="A_ID1" ColumnName="A_ID1" />
+                <ScalarProperty Name="U_ID2" ColumnName="U_ID2" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="D_ID" ColumnName="D_ID" />
+                <ScalarProperty Name="IsManage" ColumnName="IsManage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

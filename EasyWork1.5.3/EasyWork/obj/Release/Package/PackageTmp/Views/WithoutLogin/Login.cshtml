@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>请稍后...</title>
+    <script src="//cdn.bootcss.com/jquery/3.0.0-rc1/jquery.min.js"></script>
+    @if (Session["Device"].ToString()== "PC")
+    {
+        <script src="http://g.alicdn.com/dingding/dingtalk-pc-api/2.3.1/index.js"></script>
+        ViewBag.ScriptHead = "DingTalkPC";
+        
+    }
+    else
+    {
+    <!--钉钉移动端CDN服务-->
+        <script src="http://g.alicdn.com/ilw/ding/0.9.9/scripts/dingtalk.js"></script>
+        ViewBag.ScriptHead = "dd";
+    }
+    <!--权限验证配置，免登服务，根据应用ID编写的导航规则，以及获取当前用户信息-->
+    <script>
+        //获取权限验证配置信息
+        var _config = {
+            agentId: '@ViewBag.Config["appId"]',
+            corpId: '@ViewBag.Config["corpId"]',
+            timeStamp: '@ViewBag.Config["timeStamp"]',
+            nonceStr: '@ViewBag.Config["nonceStr"]',
+            signature: '@ViewBag.Config["signature"]'
+        };
+        // @{<text>@ViewBag.ScriptHead</text>}权限验证配置
+     @{<text>@ViewBag.ScriptHead</text>}.config({
+            agentId: _config.agentId,
+            corpId: _config.corpId,
+            timeStamp: _config.timeStamp,
+            nonceStr: _config.nonceStr,
+            signature: _config.signature,
+            jsApiList:
+                [
+                    'runtime.info',
+                    'biz.contact.choose',
+                    'device.notification.confirm',
+                    'device.notification.alert',
+                    'device.notification.prompt',
+                    'biz.ding.post',
+                    'runtime.permission.requestAuthCode',
+                    'device.geolocation.get',
+                    'biz.ding.post',
+                    'biz.contact.complexChoose'
+                ]
+        });
+
+        //移动端就绪函数
+         @{<text>@ViewBag.ScriptHead</text>}.ready(function () {
+            //获取免登授权码
+             @{<text>@ViewBag.ScriptHead</text>}.runtime.permission.requestAuthCode({
+                corpId: _config.corpId,
+                onSuccess: function (result) {
+                    //获取当前用户信息
+                    $.post("../WithoutLogin/GetUserInfo", { Code: result.code });
+                    //根据导航规则跳转到对应的页面
+                    navRule(_config.agentId);
+                }, onFail: function (err) {
+                    //失败回调
+                    alert("免登错误代码：" + err.errorCode + "\n" + err.errorMessage);
+                }
+            });
+        });
+
+        //错误回调函数
+         @{<text>@ViewBag.ScriptHead</text>}.error(function (err) {
+            alert("全局错误代码：" + err.errorCode + "\n" + err.errorMessage);
+        });
+
+        //应用导航规则
+        function navRule(AppID) {
+            switch (AppID) {
+                case "26281717":
+                    //预约会议室
+                    location.href = "../MeetingRoom/Index" ;
+                    break;
+                case "26281659":
+                    //审批
+                    location.href = "../Approve/Index";
+                    break;
+                case "26281440":
+                    //公告
+                    location.href = "../Notice/Index";
+                    break;
+                case "26281534":
+                    //签到
+                    location.href = "../Sign/Index";
+                    break;
+                default:
+                    //找不到对应的应用
+                     @{<text>@ViewBag.ScriptHead</text>}.device.notification.alert({
+                        message: "抱歉，找不到该应用！",
+                        title: "温馨提示",
+                        buttonName: "知道了",
+                        onSuccess: function () {
+                            //确认信息
+                        }
+                    });
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+    </div>
+</body>
+</html>
